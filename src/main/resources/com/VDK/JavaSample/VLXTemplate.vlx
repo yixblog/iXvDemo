@@ -1,0 +1,293 @@
+﻿<vlx:vlx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" service="SampleService" xmlns:vlx="http://www.i2group.com/Schemas/2001-12-07/VLXSchema">
+    <appletReturnedData />
+    <typeCatalogue identityProperty="guidECA4C5F3-4AFB-40EA-9BD6-83C8CE7FF194">
+        <endTypes>
+            <endType tGUID="guid8A586959-9837-47DE-8DBF-BC7031F01545" localName="Person" LNIconFile="adult" kindOf="guid8863CA12-D42B-4b07-8E96-5509EF979920">
+                <imageURI height="32" width="32">VLImages/gifs/new/adult.png</imageURI>
+                <property localName="identityProperty" displayName="identityProperty" pGUID="guidECA4C5F3-4AFB-40EA-9BD6-83C8CE7FF194" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" idType="databaseID" isHidden="true" />
+                <property localName="FirstName" displayName="First Name" pGUID="guid4DE7370B-60E5-4EB0-860E-4066D3DFD7B6" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" baseProperty="guidC4710BC4-4556-4b6f-AD64-1EBF73044B41" />
+                <property localName="LastName" displayName="Last Name" pGUID="guid62B01C18-2E64-46D5-B2FF-3C69B4F76FEB" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" baseProperty="guidC4710BC4-4556-4b6f-AD64-1EBF73044B41" />
+                <property localName="FullName" displayName="Full Name" pGUID="guidB696CF9C-BF3C-4311-954F-DD809CEB38CC" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" isLabel="true" baseProperty="guidC4710BC4-4556-4b6f-AD64-1EBF73044B41" />
+                <property localName="Sex" displayName="Sex" pGUID="guid7548369B-BA9A-4C4B-AEAD-0CB442EAFA27" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" baseProperty="guid9A224CCF-28F7-4c55-9F14-9E820A0B1631">
+                    <attribute vlvfDisplayAsGlyph="true" userCanAdd="false" userCanRemove="true" isUser="false">
+                        <Symbol URI="VLImages/glyphs/vlv_male_glyph.gif" position="4" shown="false" LNIconFile="yeldot" />
+                        <ShowValue>true</ShowValue>
+                        <OnlyShownIfVal>Male</OnlyShownIfVal>
+                        <ShowOnChart>true</ShowOnChart>
+                    </attribute>
+                    <attribute vlvfDisplayAsGlyph="true" userCanAdd="false" userCanRemove="true" isUser="false">
+                        <Symbol URI="VLImages/glyphs/vlv_female_glyph.gif" position="4" shown="false" LNIconFile="yeldot" />
+                        <ShowValue>true</ShowValue>
+                        <OnlyShownIfVal>Female</OnlyShownIfVal>
+                        <ShowOnChart>true</ShowOnChart>
+                    </attribute>
+                </property>
+            </endType>
+            <endType tGUID="guidDB8328BF-3AC1-42A9-B09D-51F4FC93DC42" localName="Company" LNIconFile="organ" kindOf="guidB30A4137-A537-420B-B481-C5DF922152AF">
+                <imageURI height="32" width="32">VLImages/gifs/new/organ.png</imageURI>
+                <property localName="identityProperty" displayName="identityProperty" pGUID="guidECA4C5F3-4AFB-40EA-9BD6-83C8CE7FF194" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" idType="databaseID" isHidden="true" />
+                <property localName="Name" displayName="Name" pGUID="guidB2A3B23C-07B8-4A87-8B45-4CD20079E79C" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" isLabel="true" isPicklistColumn="true" baseProperty="guidC4710BC4-4556-4b6f-AD64-1EBF73044B41" />
+                <property localName="RegistrationNo" displayName="Registration Number" pGUID="guid694EB231-9982-46FE-A40E-3D9165582101" fGUID="guidEF0A742C-097B-4899-B048-3CA75312DB96" baseProperty="guid9A224CCF-28F7-4c55-9F14-9E820A0B1631" />
+                <property localName="LineOfBusiness" displayName="Line Of Business" pGUID="guidB11A89A6-F50C-4c73-949F-00594985DA69" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" baseProperty="guid9A224CCF-28F7-4c55-9F14-9E820A0B1631" />
+            </endType>
+            <endType tGUID="guidC6A2C76F-5637-43DC-92F8-8F3563226307" localName="Address" LNIconFile="place" kindOf="guidCD3DB3DB-55F6-440A-9BB8-3F3EE4DB4D52">
+                <imageURI height="32" width="32">VLImages/gifs/new/place.png</imageURI>
+                <property localName="identityProperty" pGUID="guidECA4C5F3-4AFB-40EA-9BD6-83C8CE7FF194" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" idType="databaseID" isHidden="true" />
+                <property localName="Street" displayName="Street" pGUID="guidF56E1A86-9C0E-4248-96C0-D77D4D16704E" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" isLabel="true" baseProperty="guid9A224CCF-28F7-4c55-9F14-9E820A0B1631" />
+                <property localName="City" displayName="Town/City" pGUID="guid6D5B39A9-41EC-477D-AA79-4CEF272FF067" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" isLabel="true" baseProperty="guid9A224CCF-28F7-4c55-9F14-9E820A0B1631" />
+                <property localName="State" displayName="County/State" pGUID="guidA29B5F8F-BA18-4262-95BD-65B8216D8841" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" isLabel="true" baseProperty="guid9A224CCF-28F7-4c55-9F14-9E820A0B1631" />
+                <property localName="Country" displayName="Country" pGUID="guidDAC78E2E-4C6F-4006-B291-0A42BAB2E339" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" isLabel="true" baseProperty="guid9A224CCF-28F7-4c55-9F14-9E820A0B1631" />
+                <property localName="IsPOBox" displayName="Is PO Box" pGUID="guidFEF294B5-C470-48D1-8F84-E8E31E992D7E" fGUID="guidD29583C2-8B1F-442c-B43B-F1BE08D1BBBA" baseProperty="guid74F2A516-2F49-4282-989F-F4A468656FF0">
+                    <attribute vlvfDisplayAsGlyph="true" userCanAdd="false" userCanRemove="true" isUser="false">
+                        <Symbol URI="VLImages/glyphs/Envelope.gif" position="4" shown="true" LNIconFile="Envelope" />
+                        <Prefix>PO Box</Prefix>
+                        <ShowValue>false</ShowValue>
+                        <OnlyShownIfVal>True</OnlyShownIfVal>
+                        <ShowOnChart>true</ShowOnChart>
+                    </attribute>
+                </property>
+            </endType>
+        </endTypes>
+        <linkTypes>
+            <linkType color="#008040" isSymmetricLink="false" showArrows="true" tGUID="guid53FDE95F-AA64-4B4B-B9ED-3921A4691A68" localName="Has Shareholding Of" displayName="Has Shareholding Of" kindOf="guid1A451DF5-5A8E-4FA7-AE50-4EABE35B47C7">
+                <property localName="identityProperty" pGUID="guidECA4C5F3-4AFB-40EA-9BD6-83C8CE7FF194" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" idType="databaseID" isHidden="true" />
+                <property localName="NoOfShares" displayName="Number Of Shares" pGUID="guidFF8DB758-0ECF-4232-B166-C3F0899B5313" fGUID="guidA01164B3-009F-47e5-9449-B7820929BC72" isLabel="true" baseProperty="guid6D676796-915D-487f-B384-73503C988ABE" />
+                <property localName="PercentageStake" displayName="Percentage Stake" pGUID="guid68D17BFC-5642-445B-9719-5FE70D9645BC" fGUID="guid758517E2-3E42-41C5-B63C-A75A8C039039" isLabel="true" baseProperty="guid6D676796-915D-487f-B384-73503C988ABE" />
+            </linkType>
+            <linkType color="#800000" isSymmetricLink="false" showArrows="true" tGUID="guid18E7D3EF-0694-4DB7-8AA7-4BCEF634391E" localName="Has Address Of" kindOf="guidC9E54967-BBBF-494B-8348-B9D524F500FD">
+                <property localName="identityProperty" pGUID="guidECA4C5F3-4AFB-40EA-9BD6-83C8CE7FF194" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" idType="databaseID" isHidden="true" />
+                <property localName="IsRegisteredAddress" displayName="Is Registered Address" pGUID="guid931DDB71-041F-4A43-991C-157CAFB2A27C" fGUID="guidD29583C2-8B1F-442c-B43B-F1BE08D1BBBA" baseProperty="guid74F2A516-2F49-4282-989F-F4A468656FF0">
+                    <attribute vlvfDisplayAsGlyph="true" userCanAdd="false" userCanRemove="true" isUser="false">
+                        <Symbol URI="VLImages/glyphs/tick_red.gif" position="5" shown="true" LNIconFile="vlv_red_box" />
+                        <Prefix>Registered</Prefix>
+                        <ShowValue>false</ShowValue>
+                        <OnlyShownIfVal>True</OnlyShownIfVal>
+                        <ShowOnChart>true</ShowOnChart>
+                    </attribute>
+                </property>
+            </linkType>
+            <linkType color="#0000FF" isSymmetricLink="false" showArrows="true" tGUID="guidC807F980-760A-46BD-8F8A-573EFE341378" localName="Is Employee Of" kindOf="guid5154CF48-47CA-4ACB-8BBF-EB920B4A14E3">
+                <property localName="identityProperty" pGUID="guidECA4C5F3-4AFB-40EA-9BD6-83C8CE7FF194" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" idType="databaseID" isHidden="true" />
+                <property localName="Role" displayName="Role" pGUID="guidCE86909A-D087-445f-A73D-C79FA9AC9F8C" fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593" isLabel="true" baseProperty="guid9A224CCF-28F7-4c55-9F14-9E820A0B1631" />
+                <property localName="EmployeeNo" displayName="Employee Number" pGUID="guid48A5FEF6-2C7F-4B66-930B-02B8C7096ACD" fGUID="guidA01164B3-009F-47e5-9449-B7820929BC72" baseProperty="guid6D676796-915D-487f-B384-73503C988ABE" />
+            </linkType>
+        </linkTypes>
+        <forms>
+            <form fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593">
+                <FormName>Unformed Text</FormName>
+                <baseForm>text</baseForm>
+            </form>
+            <form fGUID="guidEF0A742C-097B-4899-B048-3CA75312DB96">
+                <FormName>Unformed Digits</FormName>
+                <baseForm>text</baseForm>
+            </form>
+            <form fGUID="guidD29583C2-8B1F-442c-B43B-F1BE08D1BBBA">
+                <FormName>True and False Value Present</FormName>
+                <baseForm>boolean</baseForm>
+                <formatters>
+                    <formatter syntax=".net">T|F</formatter>
+                    <formatter syntax=".net">TRUE|FALSE</formatter>
+                    <formatter syntax=".net">Y|N</formatter>
+                    <formatter syntax=".net">YES|NO</formatter>
+                    <formatter syntax=".net">1|0</formatter>
+                </formatters>
+            </form>
+            <form fGUID="guidA01164B3-009F-47e5-9449-B7820929BC72" factor="1.0">
+                <FormName>Unformed Number</FormName>
+                <baseForm>number</baseForm>
+                <formatters>
+                    <formatter syntax=".net">-1.1</formatter>
+                </formatters>
+            </form>
+            <form fGUID="guid758517E2-3E42-41C5-B63C-A75A8C039039" factor="1.0">
+                <FormName>Percentage</FormName>
+                <baseForm>number</baseForm>
+                <formatters>
+                    <formatter syntax=".net">-1.1</formatter>
+                </formatters>
+            </form>
+        </forms>
+        <services>
+            <service localName="SampleService" sGUID="guidDFB7C50F-81E2-4F26-BA5B-46AFABEEDA01" serviceName="Sample Service" providerName="Sample" />
+        </services>
+    </typeCatalogue>
+    <lcx:LibraryCatalogue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" VersionMajor="1" VersionMinor="18" VersionRelease="27" VersionBuild="60" LocaleHex="0409" xmlns:lcx="http://www.i2group.com/Schemas/2001-12-07/LCXSchema">
+        <lcx:Type tGUID="guid3669EC21-8E41-438A-AA1A-26B477C15BE0" abstract="true">
+            <TypeName>Entity</TypeName>
+        </lcx:Type>
+        <lcx:Type tGUID="guid8863CA12-D42B-4b07-8E96-5509EF979920" kindOf="guid3669EC21-8E41-438A-AA1A-26B477C15BE0">
+            <TypeName>Legal Entity</TypeName>
+        </lcx:Type>
+        <lcx:Type tGUID="guidB30A4137-A537-420B-B481-C5DF922152AF" kindOf="guid8863CA12-D42B-4b07-8E96-5509EF979920">
+            <TypeName>Organization</TypeName>
+        </lcx:Type>
+        <lcx:Type tGUID="guidDB8328BF-3AC1-42A9-B09D-51F4FC93DC42" kindOf="guidB30A4137-A537-420B-B481-C5DF922152AF">
+            <TypeName>Company</TypeName>
+        </lcx:Type>
+        <lcx:Type tGUID="guid8A586959-9837-47DE-8DBF-BC7031F01545" kindOf="guid8863CA12-D42B-4b07-8E96-5509EF979920">
+            <TypeName>Person</TypeName>
+        </lcx:Type>
+        <lcx:Type tGUID="guidCD3DB3DB-55F6-440A-9BB8-3F3EE4DB4D52" kindOf="guid3669EC21-8E41-438A-AA1A-26B477C15BE0">
+            <TypeName>Location</TypeName>
+        </lcx:Type>
+        <lcx:Type tGUID="guidC6A2C76F-5637-43DC-92F8-8F3563226307" kindOf="guidCD3DB3DB-55F6-440A-9BB8-3F3EE4DB4D52">
+            <TypeName>Mailing Address</TypeName>
+        </lcx:Type>
+        <lcx:Type tGUID="guidC9E54967-BBBF-494B-8348-B9D524F500FD" isSymmetricLink="true" abstract="true">
+            <TypeName>Link</TypeName>
+        </lcx:Type>
+        <lcx:Type tGUID="guid18E7D3EF-0694-4DB7-8AA7-4BCEF634391E" kindOf="guidC9E54967-BBBF-494B-8348-B9D524F500FD">
+            <TypeName>Has Address Of</TypeName>
+        </lcx:Type>
+        <lcx:Type tGUID="guid5154CF48-47CA-4ACB-8BBF-EB920B4A14E3" isSymmetricLink="true" kindOf="guidC9E54967-BBBF-494B-8348-B9D524F500FD">
+            <TypeName>Organization Link</TypeName>
+        </lcx:Type>
+        <lcx:Type tGUID="guidC807F980-760A-46BD-8F8A-573EFE341378" kindOf="guid5154CF48-47CA-4ACB-8BBF-EB920B4A14E3">
+            <TypeName>Is Employee Of</TypeName>
+        </lcx:Type>
+        <lcx:Type tGUID="guid1A451DF5-5A8E-4FA7-AE50-4EABE35B47C7" kindOf="guidC9E54967-BBBF-494B-8348-B9D524F500FD">
+            <TypeName>Owns</TypeName>
+        </lcx:Type>
+        <lcx:Type tGUID="guid53FDE95F-AA64-4B4B-B9ED-3921A4691A68" kindOf="guid1A451DF5-5A8E-4FA7-AE50-4EABE35B47C7">
+            <TypeName>Has Shareholding Of</TypeName>
+            <Documentation>
+                <Description />
+            </Documentation>
+        </lcx:Type>
+        <lcx:Property pGUID="guid74F2A516-2F49-4282-989F-F4A468656FF0" abstract="true">
+            <PropertyName>Abstract Flag</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guidFEF294B5-C470-48D1-8F84-E8E31E992D7E" baseProperty="guid74F2A516-2F49-4282-989F-F4A468656FF0">
+            <PropertyName>Is PO Box</PropertyName>
+            <Documentation>
+                <Description />
+            </Documentation>
+        </lcx:Property>
+        <lcx:Property pGUID="guid931DDB71-041F-4A43-991C-157CAFB2A27C" baseProperty="guid74F2A516-2F49-4282-989F-F4A468656FF0">
+            <PropertyName>Is Registered Address</PropertyName>
+            <Documentation>
+                <Description />
+            </Documentation>
+        </lcx:Property>
+        <lcx:Property pGUID="guid6D676796-915D-487f-B384-73503C988ABE" abstract="true">
+            <PropertyName>Abstract Number</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guid48A5FEF6-2C7F-4B66-930B-02B8C7096ACD" baseProperty="guid6D676796-915D-487f-B384-73503C988ABE">
+            <PropertyName>Employee Number</PropertyName>
+            <Documentation>
+                <Description />
+            </Documentation>
+        </lcx:Property>
+        <lcx:Property pGUID="guidFF8DB758-0ECF-4232-B166-C3F0899B5313" baseProperty="guid6D676796-915D-487f-B384-73503C988ABE">
+            <PropertyName>Number Of Shares</PropertyName>
+            <Documentation>
+                <Description />
+            </Documentation>
+        </lcx:Property>
+        <lcx:Property pGUID="guid68D17BFC-5642-445B-9719-5FE70D9645BC" baseProperty="guid6D676796-915D-487f-B384-73503C988ABE">
+            <PropertyName>Percentage Stake</PropertyName>
+            <Documentation>
+                <Description />
+            </Documentation>
+        </lcx:Property>
+        <lcx:Property pGUID="guid9A224CCF-28F7-4c55-9F14-9E820A0B1631" abstract="true">
+            <PropertyName>Abstract Text</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guid5E4B9174-E288-46c3-989F-B1F895C7DCDE" baseProperty="guid9A224CCF-28F7-4c55-9F14-9E820A0B1631" abstract="true">
+            <PropertyName>Address</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guidF56E1A86-9C0E-4248-96C0-D77D4D16704E" baseProperty="guid5E4B9174-E288-46c3-989F-B1F895C7DCDE">
+            <PropertyName>Address Line 1</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guid6D5B39A9-41EC-477D-AA79-4CEF272FF067" baseProperty="guid5E4B9174-E288-46c3-989F-B1F895C7DCDE">
+            <PropertyName>City Name</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guidDAC78E2E-4C6F-4006-B291-0A42BAB2E339" baseProperty="guid5E4B9174-E288-46c3-989F-B1F895C7DCDE">
+            <PropertyName>Country Name</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guidA29B5F8F-BA18-4262-95BD-65B8216D8841" baseProperty="guid5E4B9174-E288-46c3-989F-B1F895C7DCDE">
+            <PropertyName>State Name</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guid7548369B-BA9A-4C4B-AEAD-0CB442EAFA27" baseProperty="guid9A224CCF-28F7-4c55-9F14-9E820A0B1631">
+            <PropertyName>Gender</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guid77591248-AE21-4853-8F0E-C91F8E33E32F" baseProperty="guid9A224CCF-28F7-4c55-9F14-9E820A0B1631">
+            <PropertyName>Generic Identifier</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guid1A611A7F-FC17-4a0d-816B-018E106B0718" baseProperty="guid77591248-AE21-4853-8F0E-C91F8E33E32F">
+            <PropertyName>Organization Identifier</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guid694EB231-9982-46FE-A40E-3D9165582101" baseProperty="guid1A611A7F-FC17-4a0d-816B-018E106B0718">
+            <PropertyName>Company Registration Number</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guidC4710BC4-4556-4b6f-AD64-1EBF73044B41" baseProperty="guid9A224CCF-28F7-4c55-9F14-9E820A0B1631">
+            <PropertyName>Generic Name</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guid496E2E84-B7A0-427b-8ACC-985197D06CAC" baseProperty="guidC4710BC4-4556-4b6f-AD64-1EBF73044B41">
+            <PropertyName>Legal Entity Name</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guidB2A3B23C-07B8-4A87-8B45-4CD20079E79C" baseProperty="guid496E2E84-B7A0-427b-8ACC-985197D06CAC">
+            <PropertyName>Organization Name</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guid6F5BDE02-467B-4fef-8585-F55C13F7B592" baseProperty="guid496E2E84-B7A0-427b-8ACC-985197D06CAC" abstract="true">
+            <PropertyName>Person Name</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guid4DE7370B-60E5-4EB0-860E-4066D3DFD7B6" baseProperty="guid6F5BDE02-467B-4fef-8585-F55C13F7B592">
+            <PropertyName>Person First Name</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guidB696CF9C-BF3C-4311-954F-DD809CEB38CC" baseProperty="guid6F5BDE02-467B-4fef-8585-F55C13F7B592">
+            <PropertyName>Person Full Name</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guid62B01C18-2E64-46D5-B2FF-3C69B4F76FEB" baseProperty="guid6F5BDE02-467B-4fef-8585-F55C13F7B592">
+            <PropertyName>Person Last Name</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guidCE86909A-D087-445f-A73D-C79FA9AC9F8C" baseProperty="guid9A224CCF-28F7-4c55-9F14-9E820A0B1631">
+            <PropertyName>Job Title</PropertyName>
+        </lcx:Property>
+        <lcx:Property pGUID="guidB11A89A6-F50C-4c73-949F-00594985DA69" baseProperty="guid9A224CCF-28F7-4c55-9F14-9E820A0B1631">
+            <PropertyName>Line Of Business</PropertyName>
+        </lcx:Property>
+        <lcx:Form fGUID="guid758517E2-3E42-41C5-B63C-A75A8C039039" factor="1">
+            <FormName>Percentage</FormName>
+            <baseForm>number</baseForm>
+            <formatters>
+                <formatter>-1.1</formatter>
+            </formatters>
+            <Documentation>
+                <Description />
+            </Documentation>
+        </lcx:Form>
+        <lcx:Form fGUID="guidA01164B3-009F-47e5-9449-B7820929BC72" factor="1">
+            <FormName>Unformed Number</FormName>
+            <baseForm>number</baseForm>
+            <formatters>
+                <formatter>-1.1</formatter>
+            </formatters>
+        </lcx:Form>
+        <lcx:Form fGUID="guidD29583C2-8B1F-442c-B43B-F1BE08D1BBBA">
+            <FormName>True and False Value Present</FormName>
+            <baseForm>boolean</baseForm>
+            <formatters>
+                <formatter>T|F</formatter>
+                <formatter>TRUE|FALSE</formatter>
+                <formatter>Y|N</formatter>
+                <formatter>YES|NO</formatter>
+                <formatter>1|0</formatter>
+            </formatters>
+        </lcx:Form>
+        <lcx:Form fGUID="guidEF0A742C-097B-4899-B048-3CA75312DB96">
+            <FormName>Unformed Digits</FormName>
+            <baseForm>text</baseForm>
+            <formatters />
+        </lcx:Form>
+        <lcx:Form fGUID="guidFDEED4A3-619E-45DE-AF1A-2A4108EF9593">
+            <FormName>Unformed Text</FormName>
+            <baseForm>text</baseForm>
+            <formatters />
+        </lcx:Form>
+    </lcx:LibraryCatalogue>
+    <content>
+        <ends />
+        <links />
+    </content>
+</vlx:vlx>

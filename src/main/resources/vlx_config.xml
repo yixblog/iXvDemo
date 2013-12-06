@@ -1,0 +1,161 @@
+<root>
+    <endTypes>
+
+        <!--**********************重点人员******************-->
+        <endType localName="impperson" displayName="重点人员">
+            <imageURI height="32" width="32">
+                VLImages/gifs/Person.gif
+            </imageURI>
+            <property localName="identityProperty" displayName="标识"/>
+            <property localName="idcard" displayName="身份证号" canSearch="true" canShow="true" isLabel="true"/>
+            <property localName="name" displayName="姓名" canShow="true" canSearch="true" isLabel="true"/>
+        </endType>
+
+        <endType localName="personproperty" displayName="人员属性">
+            <imageURI height="32" width="32">VLImages/gifs/new/Case.png</imageURI>
+            <property localName="identityProperty" displayName="标识"/>
+            <property localName="label" displayName="标签" isLabel="true" canSearch="true" canShow="true"/>
+            <property localName="code" displayName="code" canSearch="true"/>
+            <property localName="personId" displayName="身份证号"/>
+        </endType>
+
+        <endType localName="hotelRecord" displayName="住宿记录">
+            <imageURI height="32" width="32">
+                VLImages/gifs/new/Flat.png
+            </imageURI>
+            <property localName="date" displayName="入住时间" canShow="true" canSearch="true"/>
+            <property localName="hotelId" displayName="旅馆id" canShow="true" canSearch="true"/>
+            <property localName="hotelName" displayName="旅馆名称" canShow="true" canSearch="true"/>
+            <property localName="roomNum" displayName="房间号" canSearch="true" canShow="true"/>
+            <property localName="identityProperty" displayName="标识" isLabel="true"/>
+        </endType>
+
+        <endType localName="car" displayName="车辆信息">
+            <imageURI height="32" width="32">VLImages/gifs/new/Compact Car.png</imageURI>
+            <property localName="identityProperty" displayName="标识"/>
+            <property localName="plate" displayName="车牌号" isLabel="true" canShow="true" canSearch="true"/>
+            <property localName="brand" displayName="品牌" canSearch="true" canShow="true"/>
+        </endType>
+
+        <endType localName="trafficAccident" displayName="交通事故">
+            <imageURI height="32" width="32">VLImages/gifs/new/Car (Damaged).png</imageURI>
+            <property localName="identityProperty" displayName="标识"/>
+            <property localName="time" displayName="事故时间" canSearch="true" canShow="true"/>
+            <property localName="location" displayName="事故地点" canShow="true" canSearch="true" isLabel="true"/>
+        </endType>
+
+    </endTypes>
+
+    <LinkTypes>
+
+        <LinkType color="#000000" localName="liveInHotel" displayName="旅馆住宿">
+            <property localName="date" isLabel="true" displayName="入住日期"/>
+        </LinkType>
+
+        <LinkType color="#ff0000" localName="inAccident" displayName="交通事故">
+            <property localName="time" isLabel="true" displayName="事故时间"/>
+        </LinkType>
+
+        <LinkType color="#000000" localName="normal"
+                  displayName="标准链接">
+            <endTypes1>
+                <endType name="" linkColumn="" linkColumnType=""/>
+            </endTypes1>
+            <endTypes2>
+                <endType name="" linkColumn="" linkColumnType=""/>
+            </endTypes2>
+        </LinkType>
+
+        <LinkType color="#008040" localName="LinkGreen"
+                  displayName="标准链接绿色">
+            <property localName="label" displayName="标签" isLabel="true"/>
+            <endTypes1>
+                <endType name="" linkColumn="" linkColumnType=""/>
+            </endTypes1>
+            <endTypes2>
+                <endType name="" linkColumn="" linkColumnType=""/>
+            </endTypes2>
+        </LinkType>
+        <LinkType color="#000000" localName="LinkBlack"
+                  displayName="标准链接黑色">
+            <property localName="label" displayName="标签" isLabel="true"/>
+            <endTypes1>
+                <endType name="" linkColumn="" linkColumnType=""/>
+            </endTypes1>
+            <endTypes2>
+                <endType name="" linkColumn="" linkColumnType=""/>
+            </endTypes2>
+        </LinkType>
+        <LinkType color="#ff0000" localName="LinkRed"
+                  displayName="标准链接红色">
+            <property localName="label" displayName="标签" isLabel="true"/>
+            <endTypes1>
+                <endType name="" linkColumn="" linkColumnType=""/>
+            </endTypes1>
+            <endTypes2>
+                <endType name="" linkColumn="" linkColumnType=""/>
+            </endTypes2>
+        </LinkType>
+        <LinkType color="#0000ff" localName="LinkBlue"
+                  displayName="标准链接蓝色">
+            <property localName="label" displayName="标签" isLabel="true"/>
+            <endTypes1>
+                <endType name="" linkColumn="" linkColumnType=""/>
+            </endTypes1>
+            <endTypes2>
+                <endType name="" linkColumn="" linkColumnType=""/>
+            </endTypes2>
+        </LinkType>
+    </LinkTypes>
+    <codelists>
+        <codelist name="dm_xb" databaseName="Rental" tableName="dm_xb"
+                  code="code" define="define"/>
+    </codelists>
+
+    <webservices>
+        <webservice name="ws_jz" displayName="经侦案件"
+                    SOAPActionURI="http://10.42.129.58/qqfw/services/QqfwCenter">
+            <SOAPMethod>process20</SOAPMethod>
+            <SOAPResponse>XSD_STRING</SOAPResponse>
+            <SOAPParams>
+                <Param name="commandName" type="XSD_STRING"
+                       default="Query"/>
+                <Param name="serverid" type="XSD_STRING"
+                       default="201440400031030"/>
+                <Param name="requestid" type="XSD_STRING"
+                       default="101440400900000"/>
+                <Param name="appid" type="XSD_STRING" default="A002"/>
+                <Param name="fields" type="XSD_STRING" default="*"/>
+                <Param name="conditions" type="XSD_STRING"
+                       default="SFZH=422702197404091213"/>
+                <Param name="pagesize" type="XSD_STRING" default="10"/>
+                <Param name="totalNumber" type="XSD_STRING" default="0"/>
+                <Param name="currentPage" type="XSD_STRING" default="1"/>
+                <Param name="rephoto" type="XSD_STRING" default="Y"/>
+                <Param name="encoding" type="XSD_STRING" default=""/>
+                <Param name="xmlExtend" type="XSD_STRING" default=""/>
+            </SOAPParams>
+            <SOAPData>
+                <field name="sfzh" type="Text" displayname="身份证号"
+                       iskey=""/>
+                <field name="xm" type="Text" displayname="身份证号"/>
+            </SOAPData>
+            >
+        </webservice>
+        <webservice name="ws_xz" displayName="刑侦案件"
+                    SOAPActionURI="http://localhost:8080/myWS/services/myTestWS">
+            <SOAPMethod>example</SOAPMethod>
+            <SOAPResponse>XSD_STRING</SOAPResponse>
+            <SOAPParams>
+                <Param name="user" type="XSD_STRING"/>
+                <Param name="pass" type="XSD_STRING"/>
+            </SOAPParams>
+            <SOAPData>
+                <field name="sfzh" type="Text" displayname="身份证号"
+                       iskey="true"/>
+                <field name="xm" type="Text" displayname="身份证号"/>
+            </SOAPData>
+            >
+        </webservice>
+    </webservices>
+</root>

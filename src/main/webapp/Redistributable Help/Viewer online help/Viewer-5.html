@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+    <HEAD>
+        <TITLE>iXv Viewer Quick Start Guide</TITLE>
+        <META name="description" content="Template iXv Viewer quick-start guide">
+        <META http-equiv="imagetoolbar" content="no">
+        <LINK rel="stylesheet" type="text/css" href="../Help.css" />
+        <SCRIPT type="text/javascript" src="../Help.js"></SCRIPT>
+        <SCRIPT>
+            if( typeof( bodyLoad) != 'function' ) bodyLoad= new Function();
+        </SCRIPT>
+    </HEAD>
+    <BODY onload="bodyLoad()">
+        <MAP name="toolbar">
+
+        <!--Enter text for the Delete toolbar button segment-->
+        <AREA shape="rect" coords="5,89,36,119" href="javascript:showPopup('toolbar-delete', 80, 412);" />
+        <DIV class="popup" id="toolbar-delete">
+            <P><B>Delete Selection toolbar button</B></P>
+            <P>Deletes selected entities, and any connecting links.</P>
+        </DIV>
+        <!--End of segment-->
+
+        <!--Enter text for the Undo Delete toolbar button segment-->
+        <AREA shape="rect" coords="37,89,69,119" href="javascript:showPopup('toolbar-undelete', 108, 412);" />
+        <DIV class="popup" id="toolbar-undelete">
+            <P><B>Undo Delete toolbar button</B></P>
+            <P>Returns the last set of entities you deleted to the chart.</P>
+        </DIV>
+        <!--End of segment-->
+
+        <!--Enter text for the Key Entity Emphasis toolbar button segment-->
+        <AREA shape="rect" coords="72,89,104,119" href="javascript:swapChart('Viewer5-ImageSwap3.gif');" />
+        <!--End of segment-->
+
+        <!--Enter text for the Time bar toolbar button segment-->
+        <AREA shape="rect" coords="105,89,136,119" href="javascript:swapChart('Viewer5-ImageSwap4.gif');" />
+        <!--End of segment-->
+
+        <!--Enter text for the Panning Tool toolbar button segment-->
+        <AREA shape="rect" coords="141,89,173,119" href="javascript:showPopup('toolbar-panningtool', 218, 412);" />
+        <DIV class="popup" id="toolbar-panningtool">
+            <P><B>Panning Tool toolbar button</B></P>
+            <P>Enables the panning tool, which allows you to move a whole chart intuitively in the <I>iXv Viewer</I>.</P>
+            <P>You can also double-click an item to center it in the <I>iXv Viewer</I>.</P>
+        </DIV>
+        <!--End of segment-->
+
+        <!--Enter text for the Zoom To Area toolbar button segment-->
+        <AREA shape="rect" coords="174,89,204,119" href="javascript:showPopup('toolbar-zoomtoarea', 246, 412);" />
+        <DIV class="popup" id="toolbar-zoomtoarea">
+            <P><B>Zoom to Area toolbar button</B></P>
+            <P>Zooms in to a particular area on the chart.</P>
+            <P>Use the mouse to draw a box around the items you want to zoom in on.</P>
+        </DIV>
+        <!--End of segment-->
+
+        <!--Enter text for the Fit To Window toolbar button segment-->
+        <AREA shape="rect" coords="211,89,241,119" href="javascript:showPopup('toolbar-fittowindow', 288, 412);" />
+        <DIV class="popup" id="toolbar-fittowindow">
+            <P><B>Fit to Window toolbar button</B></P>
+            <P>Snaps the chart to the size of the <I>iXv Viewer</I> window.</P>
+            <P>Note that if you have many items, this may make them very small.</P>
+        </DIV>
+        <!--End of segment-->
+
+        <!--Enter text for the Fit Selection To Window toolbar button segment-->
+        <AREA shape="rect" coords="243,89,272,119" href="javascript:showPopup('toolbar-fitselectiontowindow', 316, 412);" />
+        <DIV class="popup" id="toolbar-fitselectiontowindow">
+            <P><B>Fit Selection to Window toolbar button</B></P>
+            <P>Zooms in on just the currently selected items.</P>
+        </DIV>
+        <!--End of segment-->
+
+        <!--Enter text for the Select All toolbar button segment-->
+        <AREA shape="rect" coords="273,89,305,119" href="javascript:showPopup('toolbar-selectall', 344, 412);" />
+        <DIV class="popup" id="toolbar-selectall">
+            <P><B>Select All toolbar button</B></P>
+            <P>Selects all the items on the chart.</P>
+        </DIV>
+        <!--End of segment-->
+
+        <!--Enter text for the Reorganize toolbar button segment-->
+        <AREA shape="rect" coords="305,89,330,119" href="javascript:showPopup('layout-peacock', 376, 412);" />
+        <DIV class="popup" id="layout-peacock">
+            <P><B>Reorganize toolbar button</B></P>
+            <P>Reorganizes all the entities on the chart so you get an alternative snapshot of the information.</P>
+        </DIV>
+        <!--End of segment-->
+
+        <!--Enter text for the Find toolbar button segment-->
+        <AREA shape="rect" coords="330,89,360,119" href="javascript:showPopup('toolbar-find', 402, 412);" />
+        <DIV class="popup" id="toolbar-find">
+            <P><B>Find toolbar button</B></P>
+            <P>Opens the Find dialog box, where you can search for text on the chart.</P>
+            <P>Matching items are selected.</P>
+        </DIV>
+        <!--End of segment-->
+
+        <!--Enter text for the Help toolbar button segment-->
+        <AREA shape="rect" coords="362,89,389,119" href="javascript:showPopup('toolbar-help', 432, 412);" />
+        <DIV class="popup" id="toolbar-help">
+            <P><B>Help toolbar button</B></P>
+            <P>Opens the <I>iXv Viewer</I> online help (for example, this help).</P>
+        </DIV>
+        <!--End of segment-->
+
+        <!--Enter text for the Zoom scrollbar segment-->
+        <AREA shape="rect" coords="400,89,505,119" href="javascript:showPopup('toolbar-zoom', 500, 422);" />
+        <DIV class="popup" id="toolbar-zoom">
+            <P><B>Zoom scrollbar</B></P>
+            <P>Zooms in and out of the chart.</P>
+        </DIV>
+        <!--End of segment-->
+
+        <!--Enter text for the Male filter segment-->
+        <AREA shape="rect" coords="630,89,655,119" href="javascript:swapChart('Viewer5-ImageSwap2.gif');" />
+        <!--End of segment-->
+
+        </MAP>
+
+        <DIV class="NS4titlebar">
+        <TABLE class="titlebar" border="0" width="750px">
+            <TR>
+                <TD style="padding-left:20px">
+                    <P class="heading-1">iXv Viewer quick start guide</P>
+                    <P class="strapline">A template for you to customize...</P>
+                </TD>
+                <TD align="right">
+                    <IMG class="titlebarImage" src="Graphics\titlebar.gif" />
+                </TD>
+            </TR>
+        </TABLE>
+        </DIV>
+        <DIV class="NS4menubar">
+        <TABLE class="menubar" border="0" height="25px" width="752px">
+            <TR>
+                <A class="nounderline" href="Viewer.html">
+                <TD class="menubarbutton" onmouseover="highlight(this, '#E7E3F7');" onmouseout="highlight(this, 'white');">
+                    <P class="menubarbutton"><A class="nounderline" href="Viewer.html" title="Introduction to the iXv Viewer">Introduction</A></P>
+                </TD>
+                </A>
+                <A class="nounderline" href="Viewer-2.html">
+                <TD class="menubarbutton" onmouseover="highlight(this, '#E7E3F7');" onmouseout="highlight(this, 'white');">
+                    <P class="menubarbutton"><A class="nounderline" href="Viewer-2.html" title="A guide to a typical iXv Viewer user interface">Interface</A></P>
+                </TD>
+                </A>
+                <A class="nounderline" href="Viewer-3.html">
+                <TD class="menubarbutton" onmouseover="highlight(this, '#E7E3F7');" onmouseout="highlight(this, 'white');">
+                    <P class="menubarbutton"><A class="nounderline" href="Viewer-3.html" title="Querying a data source and initializing the iXv Viewer">Step 1</A></P>
+                </TD>
+                </A>
+                <A class="nounderline" href="Viewer-4.html">
+                <TD class="menubarbutton" onmouseover="highlight(this, '#E7E3F7');" onmouseout="highlight(this, 'white');">
+                    <P class="menubarbutton"><A class="nounderline" href="Viewer-4.html" title="Expanding entities to explore the data source">Step 2</A></P>
+                </TD>
+                </A>
+                <TD class="menubarbutton">
+                    <P class="menubarbutton">Step 3</P>
+                </TD>
+                <A class="nounderline" href="Viewer-6.html">
+                <TD class="menubarbutton" onmouseover="highlight(this, '#E7E3F7');" onmouseout="highlight(this, 'white');">
+                    <P class="menubarbutton"><A class="nounderline" href="Viewer-6.html" title="Showing source documents stored by the data source">Step 4</A></P>
+                </TD>
+                </A>
+                <A class="nounderline" href="Viewer-7.html">
+                <TD class="menubarbutton" onmouseover="highlight(this, '#E7E3F7');" onmouseout="highlight(this, 'white');">
+                    <P class="menubarbutton"><A class="nounderline" href="Viewer-7.html" title="Transferring a chart to a desktop application for further analysis">Step 5</A></P>
+                </TD>
+                </A>
+            </TR>
+        </TABLE>
+        </DIV>
+        <DIV class="NS4main">
+        <TABLE class="main" border="0" width="750px">
+            <TR>
+                <TD>
+                    <P class="heading-2">Step 3 &ndash; Working with the chart</P>
+                    <P>The <SPAN class="product">iXv Viewer</SPAN> toolbar enables you to work with the entities and links on the chart. You can summarize the intelligence the chart contains, or maximize its impact upon third parties.</P>
+                    <P>In addition, the data provider may implement a feature of the <SPAN class="product">iXv Viewer</SPAN> that enables you to filter information from the chart temporarily, in order to focus on only the most important information. For example, in the sample data source below, filter buttons have been implemented to the right of the <SPAN class="product">iXv Viewer</SPAN>.</P>
+                    <P><IMG id="chart" usemap="#toolbar" border="0" src="Graphics\Viewer5-ImageSwap1.gif" /></P>
+                </TD>
+            </TR>
+        </TABLE>
+        </DIV>
+    </BODY>
+</HTML>

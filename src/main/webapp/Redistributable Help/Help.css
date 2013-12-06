@@ -1,0 +1,155 @@
+BODY {
+    margin: 20px;
+}
+
+DIV.NS4titlebar {
+    border-width: 1px 1px 0 1px;
+    border-color: #9C9ACE;
+}
+
+DIV.NS4menubar {
+    border-width: 1px 1px 0 1px;
+    border-color: #9C9ACE;
+}
+
+DIV.NS4main {
+    border: 1px #9C9ACE;
+}
+
+div.popup {
+    left: 4px;
+    position: absolute;
+    padding: 12px 12px 4px;
+    z-index: 1;
+    width: 260px;
+    visibility: hidden;
+    border: 1px solid #999999;
+    background-color: #ffffcc;
+}
+
+TABLE.titlebar {
+    border: 1px solid #9C9ACE;
+    border-collapse: collapse;
+}
+
+TABLE.menubar {
+    border-left: 1px solid #9C9ACE;
+    border-collapse: separate;
+}
+
+TABLE.main {
+    border: 1px solid #9C9ACE;
+    border-top: 0;
+    border-collapse: collapse;
+
+}
+
+TD.menubarbutton {
+    border-right: 1px solid #9C9ACE;
+    border-bottom: 1px solid #9C9ACE;
+    width: 14.28%;
+}
+
+TABLE.main TD {
+    padding: 8px 20px 10px;
+}
+
+P {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 11px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    color: black;
+}
+
+P.heading-1 {
+    font-family: Arial, sans-serif;
+    font-size: 26px;
+    letter-spacing: 10px;
+    color: #082C52;
+}
+
+P.heading-2 {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 12px;
+    color: #082C52;
+}
+
+P.strapline {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 14px;
+    color: #082C52;
+}
+
+P.menubarbutton {
+    text-align: center;
+    margin-top: 3px;
+    margin-bottom: 5px;
+}
+
+ul.bullet-ie {
+    font-family: Verdana, Arial, sans-serif;
+    margin-left: 16px;
+}
+
+ul.bullet-ie li {
+    margin-top: -6px;
+    margin-bottom: -4px;
+}
+
+ul.bullet-ns6 {
+    font-family: Verdana, Arial, sans-serif;
+    margin-left: -25px;
+}
+
+ul.bullet-ns4 {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 18px;
+    margin-top: -5px;
+    margin-bottom: 0;
+    margin-left: -34px;
+}
+
+ol.number-ie {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 11px;
+    margin-left: 23px;
+}
+
+ol.number-ns6 {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 11px;
+    margin-left: -21px;
+}
+
+ol.number-ns4 {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 18px;
+    margin-top: -5px;
+    margin-bottom: 0;
+    margin-left: -34px;
+}
+
+A {
+    text-decoration: none;
+    color: #606EF2;
+}
+
+A:hover {
+    text-decoration: underline;
+}
+
+A.nounderline:hover {
+    text-decoration: none;
+}
+
+SPAN.code {
+    font: normal 10pt "Courier New", sans-serif;
+}
+
+SPAN.product {
+    font-style: italic;
+}

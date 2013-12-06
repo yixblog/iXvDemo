@@ -1,0 +1,58 @@
+vlv_bank_account	Account.png
+vlv_person_green	Adult.png
+vlv_person_grey	Adult gray.png
+vlv_person_lilac	Adult lilac.png
+vlv_person_red	Adult red.png
+vlv_person_yellow	Adult yellow.png
+vlv_aircraft	Airplane.png
+vlv_annotation	Annotation.png
+vlv_bank	Bankbldg.png
+vlv_property	Bcase.png
+vlv_book	Book.png
+vlv_case	Case.png
+vlv_category	Category.png
+vlv_cd	CD-ROM.png
+vlv_cellphone	Cellfone.png
+vlv_check	Checbook.png
+vlv_classification	Classification pie.png
+vlv_communication	Communication.png
+vlv_court	Court.png
+vlv_credit_card	Credit.png
+vlv_document	Document.png
+vlv_drivers_license	Drivers License.png
+vlv_email	Email.png
+vlv_entity	Entity vlv.png
+vlv_mail	Envelopn.png
+vlv_event	Event.png
+vlv_fax	Fax.png
+vlv_fax_asset	Fax Machine.png
+vlv_general	General.png
+vlv_generic_entity	Generic Entity vlv.png
+vlv_government_agency	Govrment.png
+vlv_weapon	Gun.png
+vlv_address	House.png
+vlv_judgment	Judgement.png
+vlv_keyword	Keyword.png
+vlv_person	Maleb.png
+vlv_motor_vehicle	Motor vehicle.png
+vlv_news_article	Newspaper article.png
+vlv_company_blue	Office blue.png
+vlv_company	Office green.png
+vlv_company_lilac	Office lilac.png
+vlv_company_red	Office red.png
+vlv_company_yellow	Office yellow.png
+vlv_organization	Organ.png
+vlv_company_name_variation	Organization Alias.png
+vlv_alias	Othname.png
+vlv_product	Package.png
+vlv_pager	Pager.png
+vlv_computer	Pc.png
+vlv_phone_asset	Phone.png
+vlv_picture	Picturedoc.png
+vlv_location	Place.png
+vlv_boat	Small Boat.png
+vlv_ssn	Social Security Number.png
+vlv_dvd	Software.png
+vlv_video	Vidcass.png
+vlv_web_page	Web Page.png
+vlv_web_site	WWW.png

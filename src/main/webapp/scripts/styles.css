@@ -1,0 +1,44 @@
+A {
+	text-decoration : none;
+	color : Black;
+}
+A:HOVER {
+	text-decoration : none;
+	color : blue;
+}
+TABLE {
+	font-family : Verdana;
+	font-size : 10pt;
+}
+BODY {
+	margin : 0px;
+	background-color : #F0F0F0;
+}
+.defFont { font-family:Verdana;font-size:10pt }
+TD.filterButtonUp {
+	border-color : White Gray Gray White !important;
+	border-width : 1px;
+	border-style : solid;
+	padding : 1px;
+}
+TD.filterButtonDown {
+	border-color : Gray White White Gray;
+	border-width : 1px;
+	border-style : solid;
+	padding : 1px;
+}
+TD.filterButton {
+	padding : 2px;
+}
+TD.selected {
+	background-color : White;
+	border-color : Gray White White Gray;
+	border-width : 1px;
+	border-style : solid;
+	padding : 1px;
+}
+TD.disabled {
+	background-color : #C0C0C0;
+	border-style : none;
+	padding : 2px;
+}

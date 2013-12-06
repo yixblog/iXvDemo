@@ -1,0 +1,10 @@
+.imgbutton {
+    cursor: pointer;
+    border: 1px solid #f0f0f0
+}
+
+.imgbuttonover {
+    cursor: pointer;
+    background-color: #FFFFFF;
+    border: 1px solid #000000
+}
