@@ -12,7 +12,7 @@ File Encoding         : 65001
 
 Date: 2013-12-09 17:28:53
 */
-create database ixvsampledata if not exists default charset=utf8;
+create database if not exists ixvsampledata default charset=utf8;
 use ixvsampledata;
 
 SET FOREIGN_KEY_CHECKS=0;
