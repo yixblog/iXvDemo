@@ -1,5 +1,4 @@
 package com.sky.app.dao.beans
-
 /**
  * 酒店
  * Created by Yixian on 13-12-9.

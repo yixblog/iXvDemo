@@ -1,5 +1,8 @@
 package com.sky.vdk.vlx.generator
 
+import com.sky.vdk.vlx.generator.annotations.VlxEndType
+import com.sky.vdk.vlx.generator.nodecfg.EndNodeConfig
+import com.sky.vdk.vlx.generator.nodecfg.LinkNodeConfig
 import com.sky.vdk.vlx.generator.nodecfg.NodeConfig
 import com.sky.vdk.vlx.generator.nodedata.EndNodeBean
 import com.sky.vdk.vlx.generator.nodedata.LinkNodeBean
@@ -20,11 +23,11 @@ import org.dom4j.Element
 class VLXGenerator {
 
     private Logger logger = Logger.getLogger(getClass());
-    static def endConfigs = [:];
-    static def linkConfigs = [:];
-    def endNodes = [:];
-    def linkNodes = [:];
-    private static Document document;
+    static Map<String,EndNodeConfig> endConfigs = [:];
+    static Map<String,LinkNodeConfig> linkConfigs = [:];
+    Map<String,EndNodeBean> endNodes = [:];
+    Map<String,LinkNodeBean> linkNodes = [:];
+    private Document document;
 
     /**
      * 初始化
@@ -72,7 +75,7 @@ class VLXGenerator {
         }
     }
 
-    private static def loadElementProperties(Element element) {
+    private def loadElementProperties(Element element) {
         def eleProperties = [];
         for (Iterator propertyIte = element.elementIterator("property"); propertyIte.hasNext();) {
             Element propertyElement = propertyIte.next() as Element;
@@ -109,6 +112,9 @@ class VLXGenerator {
         def endNode = getEndConfig(catType)?.newNode(rowData) as EndNodeBean;
         endNodes[endNode.getNodeId()] = endNode;
         return endNode;
+    }
+
+    EndNodeBean addEndByPojo(Object pojo){
     }
 
     /**
