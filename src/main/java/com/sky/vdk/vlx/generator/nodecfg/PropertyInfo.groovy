@@ -37,7 +37,11 @@ class PropertyInfo {
                 localName = getterMethodName.substring(3, 4).toLowerCase() + getterMethodName.substring(4);
             }
         }
-        return new PropertyInfo(localName: localName, displayName: property.displayName(), isLabel: property.isLabel(), getterMethodName: getterMethodName);
+        String displayName = property.displayName();
+        if (displayName == "") {
+            displayName = localName;
+        }
+        return new PropertyInfo(localName: localName, displayName: displayName, isLabel: property.isLabel(), getterMethodName: getterMethodName);
     }
 
     static PropertyInfo newInstance(Field field) {
@@ -49,11 +53,15 @@ class PropertyInfo {
         if (localName == "") {
             localName = field.getName();
         }
-        return new PropertyInfo(localName: localName, displayName: property.displayName(), isLabel: property.isLabel(), fieldName: field.getName())
+        String displayName = property.displayName();
+        if (displayName == "") {
+            displayName = localName;
+        }
+        return new PropertyInfo(localName: localName, displayName: displayName, isLabel: property.isLabel(), fieldName: field.getName())
     }
 
     String solveProperty(Object obj) {
-        logger.debug("getter method name is not null?"+(getterMethodName!=null))
+        logger.debug("getter method name is not null?" + (getterMethodName != null))
         if (getterMethodName != null) {
             return MethodUtils.invokeMethod(obj, getterMethodName)?.toString();
         } else {

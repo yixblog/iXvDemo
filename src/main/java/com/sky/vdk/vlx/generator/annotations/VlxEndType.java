@@ -11,6 +11,6 @@ import java.lang.annotation.RetentionPolicy;
 public @interface VlxEndType {
     public String localName();
     public String displayName();
-    public String imageURI();
+    public String imageURI() default "VLImages/gifs/new/Annotation.png";
     public int imageSize() default 32;
 }

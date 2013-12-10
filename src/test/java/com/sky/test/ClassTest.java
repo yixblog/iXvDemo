@@ -67,4 +67,9 @@ public class ClassTest {
     public void booleanTypeTest(){
         System.out.println(Boolean.class.equals(Boolean.class));
     }
+
+    @Test
+    public void extendTest(){
+        Car car = new Car();
+    }
 }

@@ -175,12 +175,6 @@ class VLXModelInitor implements Cloneable {
         }
     }
 
-    private void addElementAttributes(Element targetElement, Map<String, String> attributes) {
-        attributes.each { key, val ->
-            targetElement.addAttribute(key, val.trim());
-        }
-    }
-
     private String computeMD5(String localName) {
         new MD5(localName).compute()
     }
@@ -290,15 +284,19 @@ class VLXModelInitor implements Cloneable {
         Element endTypesElement = configDoc.selectSingleNode("root/endTypes") as Element;
 
         Element endType = endTypesElement.addElement("endType");
-        addElementAttributes(endType, [localName: vlxEndType.localName(), displayName: vlxEndType.displayName()]);
+        SkyXMLUtils.addElementProperties(endType, [localName: vlxEndType.localName(), displayName: vlxEndType.displayName()]);
 
         Element imageEle = endType.addElement("imageURI");
-        addElementAttributes(imageEle, [width: vlxEndType.imageSize().toString(), height: vlxEndType.imageSize().toString()]);
+        SkyXMLUtils.addElementProperties(imageEle, [width: vlxEndType.imageSize().toString(), height: vlxEndType.imageSize().toString()]);
         imageEle.setText(vlxEndType.imageURI());
 
         propertyInfos.each { PropertyInfo info ->
             Element property = endType.addElement("property");
-            addElementAttributes(property, [localName: info.getLocalName(), displayName: info.getDisplayName(), isLabel: info.isIsLabel().toString(), canSearch: 'true', canShow: 'true']);
+            Map<String,String> attributesToAddition = [localName: info.getLocalName(), displayName: info.getDisplayName(), canSearch: 'true', canShow: 'true'];
+            if(info.isIsLabel()){
+                attributesToAddition['isLabel']='true';
+            }
+            SkyXMLUtils.addElementProperties(property, attributesToAddition);
         }
         initVLX(SkyXMLUtils.formatXMLOutput(configDoc));
         return DocumentHelper.parseText(baseVLX);

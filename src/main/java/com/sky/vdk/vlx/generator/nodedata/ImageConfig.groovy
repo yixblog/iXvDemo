@@ -19,6 +19,6 @@ class ImageConfig {
     void generateImageElement(Element parentNode) {
         Element formatting = parentNode.addElement("formatting");
         Element image = formatting.addElement("image");
-        SkyXMLUtils.addElementProperties(image, [url: url, width: width, height: height] as Map<String, String>);
+        SkyXMLUtils.addElementProperties(image, [URI: url, width: width.toString(), height: height.toString()]);
     }
 }

@@ -1,7 +1,5 @@
 package com.sky.app.core;
 
-import com.alibaba.fastjson.JSONObject;
-
 /**
  * Created with IntelliJ IDEA.
  * User: yixian
@@ -9,15 +7,24 @@ import com.alibaba.fastjson.JSONObject;
  * Time: 下午2:29
  */
 public interface IVLXBuilder {
-    public String buildPersonVLX();
+    public String findPerson(int id);
 
-    public String appendPersonPropertyVLX(String personId);
+    public String expandPersonParams(int id);
 
-    public String appendHotelInfo(String personId);
+    public String expandCarInfo(int personId);
 
-    public String appendCars(String personId);
+    public String expandHotelRecord(int personId);
 
-    public String appendTrafficAccidents(String carId);
+    public String expandWebCafeRecord(int personId);
 
-    public JSONObject getEndNodes();
+    public String expandTrafficOffences(int personId);
+
+    public String expandJustice(int personId);
+
+    public String expandReform(int personId);
+
+    public String expandEducation(int personId);
+
+    public String expandVolunteer(int personId);
+
 }

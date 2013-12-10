@@ -16,7 +16,9 @@ class LinkNodeBean extends NodeBean {
     void linkNodes(EndNodeBean end1, EndNodeBean end2) {
         this.end1 = end1;
         this.end2 = end2;
-        properties["identityProperty"] = "${end1.getIdentityProperty()}-${end2.getIdentityProperty()}"
+        if (getIdentityProperty() == null) {
+            properties["identityProperty"] = "${end1.getIdentityProperty()}-${end2.getIdentityProperty()}"
+        }
     }
 
     @Override
@@ -30,6 +32,6 @@ class LinkNodeBean extends NodeBean {
 
     @Override
     String getNodeId() {
-        return "id-${end1.getIdentityProperty()}-${end2.getIdentityProperty()}"
+        return "id-${end1.getNodeId()}-${end2.getNodeId()}-${getIdentityProperty()}"
     }
 }

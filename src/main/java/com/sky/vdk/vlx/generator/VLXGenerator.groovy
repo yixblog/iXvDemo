@@ -30,8 +30,8 @@ import java.lang.reflect.Method
 class VLXGenerator {
 
     private Logger logger = Logger.getLogger(getClass());
-    static Map<String, EndNodeConfig> endConfigs = [:];
-    static Map<String, LinkNodeConfig> linkConfigs = [:];
+    Map<String, EndNodeConfig> endConfigs = [:];
+    Map<String, LinkNodeConfig> linkConfigs = [:];
     Map<String, EndNodeBean> endNodes = [:];
     Map<String, LinkNodeBean> linkNodes = [:];
     private Document document;
@@ -141,8 +141,8 @@ class VLXGenerator {
             String propertyValue = info.solveProperty(pojo)
             if (propertyValue != null) {
                 endProperties.put(info.getLocalName(), propertyValue)
-            }else{
-                logger.debug("property is null:"+info.getLocalName())
+            } else {
+                logger.debug("property is null:" + info.getLocalName())
             }
         }
         addEnd(config.getNodeName(), endProperties);

@@ -1,6 +1,5 @@
 package com.sky.app.web
 
-import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.JSONObject
 import com.sky.app.core.IVLXBuilder
 import org.springframework.stereotype.Controller
@@ -17,63 +16,76 @@ import javax.annotation.Resource
  * Time: 下午2:27
  */
 @Controller
-@RequestMapping("/vlx")
+@RequestMapping("/data/vlx")
 class VLXController {
     @Resource(name = "vlxBuilder")
     private IVLXBuilder vlxBuilder;
 
-
-    @RequestMapping("/expandNode")
+    @RequestMapping('/person.vlx')
     @ResponseBody
-    String expandVLXNode(@RequestParam String endType, @RequestParam String params) {
-        JSONObject paramObject = JSON.parseObject(params);
-        if (endType == "impperson") {
-            return vlxBuilder.appendPersonPropertyVLX(paramObject.getString('identityProperty'));
-        } else if (endType == "personproperty") {
-            if (paramObject.getString('code') == "HOTEL") {
-                return vlxBuilder.appendHotelInfo(paramObject.getString('personId'));
-            } else if (paramObject.getString('code') == "CARINF") {
-                return vlxBuilder.appendCars(paramObject.getString('personId'));
-            }
-        } else if (endType == "car") {
-            return vlxBuilder.appendTrafficAccidents(paramObject.getString('identityProperty'));
-        }
-        return "";
+    String getPersonVlx(@RequestParam int personId) {
+        return vlxBuilder.findPerson(personId);
     }
 
-    @RequestMapping("/loadPerson")
+    @RequestMapping('/personProperties.vlx')
     @ResponseBody
-    String loadVlxString() {
-        return vlxBuilder.buildPersonVLX();
+    String getPersonProperties(@RequestParam String params) {
+        JSONObject paramObj = JSONObject.parseObject(params);
+        int personId = paramObj.getIntValue('identityProperty');
+        return vlxBuilder.expandPersonParams(personId);
     }
 
-    @RequestMapping("/queryProperties")
+    @RequestMapping('/networks.vlx')
     @ResponseBody
-    String queryProperties(@RequestParam String personId) {
-        return vlxBuilder.appendPersonPropertyVLX(personId);
+    String getPersonNetCafeLogs(@RequestParam String params) {
+        return vlxBuilder.expandWebCafeRecord(solvePersonId(params));
     }
 
-    @RequestMapping("/appendHotelRecords")
+    @RequestMapping('/hotelRecord.vlx')
     @ResponseBody
-    String appendHotelRecords(@RequestParam String personId) {
-        return vlxBuilder.appendHotelInfo(personId);
+    String listPersonHotelRecords(@RequestParam String params) {
+        return vlxBuilder.expandHotelRecord(solvePersonId(params));
     }
 
-    @RequestMapping("/appendCars")
-    @ResponseBody
-    String appendCars(@RequestParam String personId) {
-        return vlxBuilder.appendCars(personId);
+    private int solvePersonId(String params) {
+        JSONObject paramObj = JSONObject.parseObject(params);
+        paramObj.getIntValue('personid');
     }
 
-    @RequestMapping("/appendAccidents")
+    @RequestMapping('/cars.vlx')
     @ResponseBody
-    String appendAccidents(@RequestParam String carId) {
-        return vlxBuilder.appendTrafficAccidents(carId)
+    String listPersonCars(@RequestParam String params) {
+        return vlxBuilder.expandCarInfo(solvePersonId(params))
     }
 
-    @RequestMapping("/ends")
+    @RequestMapping('/traffic.vlx')
     @ResponseBody
-    JSONObject getVLXEnds() {
-        vlxBuilder.getEndNodes();
+    String getPersonTrafficOffence(@RequestParam String params) {
+        return vlxBuilder.expandTrafficOffences(solvePersonId(params))
     }
+
+    @RequestMapping('/justice.vlx')
+    @ResponseBody
+    String expandJusticeNodes(@RequestParam String params) {
+        return vlxBuilder.expandJustice(solvePersonId(params))
+    }
+
+    @RequestMapping('/reform.vlx')
+    @ResponseBody
+    String showPersonReformPlans(@RequestParam String params) {
+        return vlxBuilder.expandReform(solvePersonId(params))
+    }
+
+    @RequestMapping('/education.vlx')
+    @ResponseBody
+    String listPersonEducationLog(@RequestParam String params) {
+        return vlxBuilder.expandEducation(solvePersonId(params))
+    }
+
+    @RequestMapping('/volunteer.vlx')
+    @ResponseBody
+    String listPersonVolunteerWorks(@RequestParam String params) {
+        return vlxBuilder.expandVolunteer(solvePersonId(params))
+    }
+
 }

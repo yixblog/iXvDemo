@@ -9,4 +9,11 @@ class InternetCafeRecord {
     Person person;
     InternetCafe cafe;
     String startTime;
+
+    boolean equals(Object obj) {
+        if (obj instanceof InternetCafeRecord) {
+            return (InternetCafeRecord) obj.id == this.id;
+        }
+        return false;
+    }
 }

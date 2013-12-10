@@ -10,16 +10,17 @@ import org.dom4j.Element
  * Time: 下午6:13
  */
 abstract class NodeBean {
-    def properties = [:];
+    Map<String, String> properties = [:];
     NodeConfig config;
-    def typeName;
+    String typeName;
 
     void putProperties(Map<String, String> dataItem) {
         def configProperties = config.getProperties();
         for (String prop : configProperties) {
-//            if (dataItem[prop] != null) {
-                properties[prop] = dataItem[prop]
-//            }
+            properties[prop] = dataItem[prop]
+        }
+        if (getIdentityProperty() == null) {
+            properties['identityProperty'] = dataItem['identityProperty'];
         }
     }
 
@@ -27,18 +28,21 @@ abstract class NodeBean {
 
     protected void putProperties(Element parent) {
         Element propertiesNode = parent.addElement("properties");
-        properties.each { def property ->
-            if(property.getValue()==null){
+        properties.each { key, val ->
+            if (val == null) {
                 return
             }
-            Element propertyNode = propertiesNode.addElement(property.getKey() as String);
-            propertyNode.addText(property.getValue() as String);
+            if (!config.getProperties().contains(key)) {
+                return
+            }
+            Element propertyNode = propertiesNode.addElement(key);
+            propertyNode.addText(val);
         }
     }
 
-    protected void addAttributes(Element node, def attributes) {
-        attributes.each { def entry ->
-            node.addAttribute(entry.getKey() as String, entry.getValue() as String);
+    protected void addAttributes(Element node, Map<String, String> attributes) {
+        attributes.each { key, val ->
+            node.addAttribute(key, val);
         }
     }
 

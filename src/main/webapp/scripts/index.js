@@ -8,7 +8,9 @@
 $(document).ready(function () {
     iXvChart.buildChart($("body"));
     $.ajax({
-        url: "vlx/loadPerson",
+        url: "data/vlx/person.vlx",
+        type:"post",
+        data:{personId:1},
         success: function (xml) {
             if (xml.length > 0) {
                 iXvChart.setInit(function () {
@@ -19,7 +21,7 @@ $(document).ready(function () {
     });
     chartMenuManager.registerHandler({
         manager: chartMenuManager,
-        typeName: "impperson",
+        typeName: "person",
         menus: {
             101: "展开人物信息",
             102: "收缩",
@@ -29,7 +31,7 @@ $(document).ready(function () {
         actions: {
             101: function () {
                 iXvChart.appendVLX({
-                    url: "vlx/expandNode",
+                    url: "data/vlx/personProperties.vlx",
                     type: "post"
                 })
             },
@@ -44,15 +46,16 @@ $(document).ready(function () {
 
     chartMenuManager.registerHandler({
         manager: chartMenuManager,
-        typeName: "personproperty",
+        typeName: "personProperty",
         menus: {
             101: "展开信息",
             102: "收缩"
         },
         actions: {
             101: function () {
+                var properties = iXvChart.getItemProperties(iXvChart.getSelectedItemId());
                 iXvChart.appendVLX({
-                    url: "vlx/expandNode",
+                    url: properties.uri,
                     type: "post"
                 })
             },
@@ -66,21 +69,9 @@ $(document).ready(function () {
         manager: chartMenuManager,
         typeName: "car",
         menus: {
-            101: "展开交通事故信息",
-            102: "收缩",
-            777: "-",
             800: "查看车辆属性"
         },
         actions: {
-            101: function () {
-                iXvChart.appendVLX({
-                    url: "vlx/expandNode",
-                    type: "post"
-                })
-            },
-            102: function () {
-                iXvChart.contractEnds();
-            },
             800: function () {
                 iXvChart.showProperties();
             }
@@ -89,7 +80,7 @@ $(document).ready(function () {
 
     chartMenuManager.registerHandler({
         manager: chartMenuManager,
-        typeName: "hotelRecord",
+        typeName: "liveRecord",
         menus: {
             800: "查看属性"
         },
@@ -102,7 +93,7 @@ $(document).ready(function () {
 
     chartMenuManager.registerHandler({
         manager: chartMenuManager,
-        typeName: "trafficAccident",
+        typeName: "trafficOffence",
         menus: {
             800: "查看交通事故属性"
         },
@@ -112,4 +103,44 @@ $(document).ready(function () {
             }
         }
     });
+
+    chartMenuManager.registerHandler({
+        manager: chartMenuManager,
+        typeName: "justiceEduAttend",
+        menus: {
+            800: "查看属性"
+        },
+        actions: {
+            800: function () {
+                iXvChart.showProperties();
+            }
+        }
+    });
+
+    chartMenuManager.registerHandler({
+        manager: chartMenuManager,
+        typeName: "justiceReformPlan",
+        menus: {
+            800: "查看属性"
+        },
+        actions: {
+            800: function () {
+                iXvChart.showProperties();
+            }
+        }
+    });
+
+    chartMenuManager.registerHandler({
+        manager: chartMenuManager,
+        typeName: "volunteerWork",
+        menus: {
+            800: "查看属性"
+        },
+        actions: {
+            800: function () {
+                iXvChart.showProperties();
+            }
+        }
+    });
+
 });
