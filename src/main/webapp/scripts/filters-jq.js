@@ -6,9 +6,10 @@ var ExpandBar = function (parentNode) {
         for (var i = 0; i < types.length; i++) {
             var typeName = types[i];
             var typeImage = iXvChart.getChart().getItemTypeImage(typeName);
+            var typeDisplayName = iXvChart.getChart().getItemTypeDisplayName(typeName);
             var tr = $("<tr></tr>").appendTo(parentNode);
-            var td = $("<td></td>", {"class": "filterButton selected"}).appendTo(tr);
-            $("<img>", {src: typeImage, alt: typeName, width: 22, height: 22}).appendTo(td);
+            var td = $("<td></td>", {"class": "filterButton selected",title:typeDisplayName}).appendTo(tr);
+            $("<img>", {src: typeImage, alt: typeDisplayName, width: 22, height: 22}).appendTo(td);
             bindActions(td, typeName);
         }
     };
