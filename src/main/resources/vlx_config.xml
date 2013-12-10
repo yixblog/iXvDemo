@@ -1,48 +1,6 @@
 <root>
     <endTypes>
 
-        <!--**********************重点人员******************-->
-        <endType localName="impperson" displayName="重点人员">
-            <imageURI height="32" width="32">
-                VLImages/gifs/Person.gif
-            </imageURI>
-            <property localName="identityProperty" displayName="标识"/>
-            <property localName="idcard" displayName="身份证号" canSearch="true" canShow="true" isLabel="true"/>
-            <property localName="name" displayName="姓名" canShow="true" canSearch="true" isLabel="true"/>
-        </endType>
-
-        <endType localName="personproperty" displayName="人员属性">
-            <imageURI height="32" width="32">VLImages/gifs/new/Case.png</imageURI>
-            <property localName="identityProperty" displayName="标识"/>
-            <property localName="label" displayName="标签" isLabel="true" canSearch="true" canShow="true"/>
-            <property localName="code" displayName="code" canSearch="true"/>
-            <property localName="personId" displayName="身份证号"/>
-        </endType>
-
-        <endType localName="hotelRecord" displayName="住宿记录">
-            <imageURI height="32" width="32">
-                VLImages/gifs/new/Flat.png
-            </imageURI>
-            <property localName="date" displayName="入住时间" canShow="true" canSearch="true"/>
-            <property localName="hotelId" displayName="旅馆id" canShow="true" canSearch="true"/>
-            <property localName="hotelName" displayName="旅馆名称" canShow="true" canSearch="true"/>
-            <property localName="roomNum" displayName="房间号" canSearch="true" canShow="true"/>
-            <property localName="identityProperty" displayName="标识" isLabel="true"/>
-        </endType>
-
-        <endType localName="car" displayName="车辆信息">
-            <imageURI height="32" width="32">VLImages/gifs/new/Compact Car.png</imageURI>
-            <property localName="identityProperty" displayName="标识"/>
-            <property localName="plate" displayName="车牌号" isLabel="true" canShow="true" canSearch="true"/>
-            <property localName="brand" displayName="品牌" canSearch="true" canShow="true"/>
-        </endType>
-
-        <endType localName="trafficAccident" displayName="交通事故">
-            <imageURI height="32" width="32">VLImages/gifs/new/Car (Damaged).png</imageURI>
-            <property localName="identityProperty" displayName="标识"/>
-            <property localName="time" displayName="事故时间" canSearch="true" canShow="true"/>
-            <property localName="location" displayName="事故地点" canShow="true" canSearch="true" isLabel="true"/>
-        </endType>
 
     </endTypes>
 

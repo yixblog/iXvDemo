@@ -1,9 +1,13 @@
 package com.sky.vdk.vlx.generator
 
 import com.sky.vdk.vlx.generator.annotations.VlxEndType
+import com.sky.vdk.vlx.generator.annotations.VlxProperty
+import com.sky.vdk.vlx.generator.exceptions.NotAnnotatedClassException
+import com.sky.vdk.vlx.generator.exceptions.VlxTypeNameConflictException
 import com.sky.vdk.vlx.generator.nodecfg.EndNodeConfig
 import com.sky.vdk.vlx.generator.nodecfg.LinkNodeConfig
 import com.sky.vdk.vlx.generator.nodecfg.NodeConfig
+import com.sky.vdk.vlx.generator.nodecfg.PropertyInfo
 import com.sky.vdk.vlx.generator.nodedata.EndNodeBean
 import com.sky.vdk.vlx.generator.nodedata.LinkNodeBean
 import com.sky.vdk.vlx.generator.nodedata.NodeBean
@@ -14,6 +18,9 @@ import org.dom4j.Document
 import org.dom4j.DocumentHelper
 import org.dom4j.Element
 
+import java.lang.reflect.Field
+import java.lang.reflect.Method
+
 /**
  * Created with IntelliJ IDEA.
  * User: yixian
@@ -23,17 +30,18 @@ import org.dom4j.Element
 class VLXGenerator {
 
     private Logger logger = Logger.getLogger(getClass());
-    static Map<String,EndNodeConfig> endConfigs = [:];
-    static Map<String,LinkNodeConfig> linkConfigs = [:];
-    Map<String,EndNodeBean> endNodes = [:];
-    Map<String,LinkNodeBean> linkNodes = [:];
+    static Map<String, EndNodeConfig> endConfigs = [:];
+    static Map<String, LinkNodeConfig> linkConfigs = [:];
+    Map<String, EndNodeBean> endNodes = [:];
+    Map<String, LinkNodeBean> linkNodes = [:];
     private Document document;
+    private VLXModelInitor initor;
 
     /**
      * 初始化
      */
     {
-        VLXModelInitor initor = VLXModelInitor.getInstance();
+        initor = VLXModelInitor.getInstance().clone() as VLXModelInitor;
         document = DocumentHelper.parseText(initor.baseVLX);
         loadNodeConfig();
     }
@@ -56,10 +64,10 @@ class VLXGenerator {
 
     private void displayConfigs() {
         logger.info("loaded config:");
-        endConfigs.each { def entry ->
+        endConfigs.each { Map.Entry<String, String> entry ->
             logger.info(entry.getValue().toString());
         }
-        linkConfigs.each { def entry ->
+        linkConfigs.each { Map.Entry<String, String> entry ->
             logger.info(entry.getValue().toString());
         }
     }
@@ -70,13 +78,13 @@ class VLXGenerator {
             Element element = ite.next() as Element;
             logger.debug("load element:" + element.getName());
             String localName = element.attributeValue("localName");
-            def properties = loadElementProperties(element);
+            List<String> properties = loadElementProperties(element);
             nodeConfigs[localName] = NodeConfig.createInstance(nodeType, localName, properties);
         }
     }
 
-    private def loadElementProperties(Element element) {
-        def eleProperties = [];
+    private List<String> loadElementProperties(Element element) {
+        List<String> eleProperties = [];
         for (Iterator propertyIte = element.elementIterator("property"); propertyIte.hasNext();) {
             Element propertyElement = propertyIte.next() as Element;
             eleProperties.add(propertyElement.attributeValue("localName"));
@@ -108,24 +116,89 @@ class VLXGenerator {
      * @param rowData
      * @return
      */
-    EndNodeBean addEnd(String catType, def rowData) {
+    EndNodeBean addEnd(String catType, Map<String, String> rowData) {
         def endNode = getEndConfig(catType)?.newNode(rowData) as EndNodeBean;
         endNodes[endNode.getNodeId()] = endNode;
         return endNode;
     }
 
-    EndNodeBean addEndByPojo(Object pojo){
+    EndNodeBean addEndByPojo(Object pojo) {
+        Class clazz = pojo.getClass();
+        if (clazz.isAnnotationPresent(VlxEndType.class)) {
+            return solveAnnotation(pojo);
+        } else {
+            throw new NotAnnotatedClassException(clazz);
+        }
     }
 
-    /**
-     * 关联两个节点
-     * @param catType 节点类型
-     * @param end1 起始节点
-     * @param end2 结束节点
-     * @param params 连接参数
-     * @return
-     */
-    LinkNodeBean connectNodes(String catType, EndNodeBean end1, EndNodeBean end2, def params) {
+    private EndNodeBean solveAnnotation(Object pojo) {
+        Class clazz = pojo.getClass();
+        VlxEndType endTypeInfo = clazz.getAnnotation(VlxEndType.class);
+        List<PropertyInfo> propertiesInfo = solveProperties(clazz);
+        EndNodeConfig config = checkInsertEndType(propertiesInfo, endTypeInfo, clazz)
+        Map<String, String> endProperties = [:]
+        propertiesInfo.each { PropertyInfo info ->
+            String propertyValue = info.solveProperty(pojo)
+            if (propertyValue != null) {
+                endProperties.put(info.getLocalName(), propertyValue)
+            }else{
+                logger.debug("property is null:"+info.getLocalName())
+            }
+        }
+        addEnd(config.getNodeName(), endProperties);
+    }
+
+    private EndNodeConfig checkInsertEndType(List<PropertyInfo> propertiesInfo, VlxEndType endTypeInfo, Class<?> clazz) {
+        List<String> propertyNames = loadPropertyNames(propertiesInfo);
+        EndNodeConfig config = NodeConfig.createInstance("end", endTypeInfo.localName(), propertyNames) as EndNodeConfig;
+        if (endConfigs.get(config.getNodeName()) != null) {
+            if (!endConfigs.get(config.getNodeName()).equals(config)) {
+                throw new VlxTypeNameConflictException(config.getNodeName(), clazz);
+            }
+        } else {
+            endConfigs.put(config.getNodeName(), config);
+            appendEndTypeToDocument(endTypeInfo, propertiesInfo);
+        }
+        config
+    }
+
+    private void appendEndTypeToDocument(VlxEndType vlxEndType, List<PropertyInfo> propertyInfos) {
+        document = initor.addVlxEndType(vlxEndType, propertyInfos);
+    }
+
+    private List<String> loadPropertyNames(List<PropertyInfo> propertyInfos) {
+        List<String> propertyNames = [];
+        propertyInfos.each { PropertyInfo info ->
+            propertyNames.add(info.getLocalName());
+        }
+        return propertyNames;
+    }
+
+    private List<PropertyInfo> solveProperties(Class clazz) {
+        List<PropertyInfo> properties = [];
+        for (Field field : clazz.getDeclaredFields()) {
+            if (field.isAnnotationPresent(VlxProperty.class)) {
+                PropertyInfo property = PropertyInfo.newInstance(field);
+                properties.add(property);
+            }
+        }
+        for (Method method : clazz.getDeclaredMethods()) {
+            if (method.isAnnotationPresent(VlxProperty.class)) {
+                PropertyInfo property = PropertyInfo.newInstance(method);
+                properties.add(property);
+            }
+        }
+        return properties;
+    }
+/**
+ * 关联两个节点
+ * @param catType 节点类型
+ * @param end1 起始节点
+ * @param end2 结束节点
+ * @param params 连接参数
+ * @return
+ */
+    LinkNodeBean connectNodes(String catType, EndNodeBean end1, EndNodeBean end2, Map<String, String> params) {
         def linkNode = getLinkConfig(catType)?.newNode(params) as LinkNodeBean;
         linkNode.linkNodes(end1, end2);
         linkNodes[linkNode.getNodeId()] = linkNode;
@@ -153,7 +226,7 @@ class VLXGenerator {
 
     private void buildEndNodes(Document doc) {
         def ends = doc.selectSingleNode("vlx:vlx/content/ends") as Element;
-        endNodes.each { def entry ->
+        endNodes.each { Map.Entry<String, String> entry ->
             NodeBean nodeInfo = entry.getValue() as NodeBean;
             nodeInfo.buildElement(ends);
         }
@@ -161,7 +234,7 @@ class VLXGenerator {
 
     private void buildLinkNodes(Document doc) {
         def links = doc.selectSingleNode("vlx:vlx/content/links") as Element;
-        linkNodes.each { def entry ->
+        linkNodes.each { Map.Entry<String, String> entry ->
             NodeBean nodeInfo = entry.getValue() as NodeBean;
             nodeInfo.buildElement(links);
         }

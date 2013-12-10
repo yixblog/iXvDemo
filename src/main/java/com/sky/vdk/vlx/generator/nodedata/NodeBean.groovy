@@ -14,10 +14,12 @@ abstract class NodeBean {
     NodeConfig config;
     def typeName;
 
-    void putProperties(def dataItem) {
+    void putProperties(Map<String, String> dataItem) {
         def configProperties = config.getProperties();
         for (String prop : configProperties) {
-            properties[prop] = dataItem[prop];
+//            if (dataItem[prop] != null) {
+                properties[prop] = dataItem[prop]
+//            }
         }
     }
 
@@ -26,6 +28,9 @@ abstract class NodeBean {
     protected void putProperties(Element parent) {
         Element propertiesNode = parent.addElement("properties");
         properties.each { def property ->
+            if(property.getValue()==null){
+                return
+            }
             Element propertyNode = propertiesNode.addElement(property.getKey() as String);
             propertyNode.addText(property.getValue() as String);
         }

@@ -9,14 +9,14 @@ import com.sky.vdk.vlx.generator.nodedata.NodeBean
  * Date: 13-11-6
  * Time: 下午6:16
  */
-class LinkNodeConfig extends NodeConfig{
-    LinkNodeConfig(String linkName,def properties){
+class LinkNodeConfig extends NodeConfig {
+    LinkNodeConfig(String linkName, def properties) {
         this.nodeName = linkName;
         this.properties = properties;
     }
 
     @Override
-    NodeBean newNode(dataItem) {
+    NodeBean newNode(Map<String, String> dataItem) {
         NodeBean node = new LinkNodeBean();
         initNode(node);
         node.putProperties(dataItem);

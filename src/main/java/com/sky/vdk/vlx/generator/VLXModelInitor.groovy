@@ -1,5 +1,7 @@
 package com.sky.vdk.vlx.generator
 
+import com.sky.vdk.vlx.generator.annotations.VlxEndType
+import com.sky.vdk.vlx.generator.nodecfg.PropertyInfo
 import com.sky.vdk.vlx.generator.utils.MD5
 import com.sky.vdk.vlx.generator.utils.SkyXMLUtils
 import org.apache.log4j.Logger
@@ -15,11 +17,11 @@ import org.dom4j.io.SAXReader
  * Date: 13-11-28
  * Time: 下午4:46
  */
-class VLXModelInitor {
+class VLXModelInitor implements Cloneable {
     private Logger log = Logger.getLogger(getClass());
     private static final String configPath = "vlx_config.xml";
     private String baseVLX;
-    private String sourceConfig;
+    private static String sourceConfig;
 
     private final static VLXModelInitor initor = new VLXModelInitor();
 
@@ -32,41 +34,9 @@ class VLXModelInitor {
     }
 
     private VLXModelInitor() {
-        initVLX();
-    }
-
-    public void initVLX() {
-        SAXReader reader = new SAXReader();
         try {
-            /*
-             * 处理文件输入部分，进行中文编码转换
-             */
-            String fileName = getClass().getClassLoader().getResource("$configPath")?.getPath();
-            log.debug("filename:$fileName")
-            File f = new File(fileName);
-            BufferedReader BRreader = new BufferedReader(new InputStreamReader(
-                    new FileInputStream(f), "UTF-8"));
-
-            /*
-             * 创建Document对象
-             */
-            Document document = reader.read(BRreader);
-
-            /*
-             * 保存document对象为字符串格式
-             */
-            sourceConfig = SkyXMLUtils.formatXMLOutput(document)
-            /*
-             * 转换config文件为vlx格式配置文件 翻译处理实体定义部分
-             */
-            Document document_new = conversion(document);
-            /*
-             * 转换config文件为vlx格式配置文件 翻译处理链接定义部分
-             */
-            document_new = this.converLinkTypes(document_new, document);
-
-            baseVLX = SkyXMLUtils.formatXMLOutput(document_new);
-
+            loadSourceConfig();
+            initVLX(sourceConfig);
         } catch (DocumentException ex) {
             log.warn("打开文件失败");
             log.error(ex.getMessage());
@@ -77,6 +47,44 @@ class VLXModelInitor {
             log.warn("打开文件失败");
             log.error(ex.getMessage());
         }
+    }
+
+    private void loadSourceConfig() {
+        /*
+             * 保存document对象为字符串格式
+             */
+        SAXReader reader = new SAXReader();
+        /*
+        * 处理文件输入部分，进行中文编码转换
+        */
+
+        String fileName = getClass().getClassLoader().getResource("$configPath")?.getPath();
+        log.debug("filename:$fileName")
+        File f = new File(fileName);
+        BufferedReader BRreader = new BufferedReader(new InputStreamReader(
+                new FileInputStream(f), "UTF-8"));
+
+        /*
+         * 创建Document对象
+         */
+        Document document = reader.read(BRreader);
+        sourceConfig = SkyXMLUtils.formatXMLOutput(document);
+
+    }
+
+    public void initVLX(String sourceConfig) {
+        Document document = DocumentHelper.parseText(sourceConfig);
+        /*
+         * 转换config文件为vlx格式配置文件 翻译处理实体定义部分
+         */
+        Document document_new = conversion(document);
+        /*
+         * 转换config文件为vlx格式配置文件 翻译处理链接定义部分
+         */
+        document_new = this.converLinkTypes(document_new, document);
+
+        baseVLX = SkyXMLUtils.formatXMLOutput(document_new);
+
     }
 
     protected Document conversion(Document configDocument) throws DocumentException {
@@ -113,7 +121,7 @@ class VLXModelInitor {
             // 开始转换实体==========================
             Element endType = endTypes.addElement("endType"); // 创建endType节点
             if (_endType.attributeValue("localName") != null) {
-                fillPropertyAttributes(endType, _endType, 'LNIconFile', 'localName', 'displayName');
+                copyPropertyAttributes(endType, _endType, 'LNIconFile', 'localName', 'displayName');
                 endType.addAttribute("tGUID", computeMD5(_endType.attributeValue("localName").trim()))
                 endType.addAttribute("representation", "theme");
             }
@@ -161,9 +169,15 @@ class VLXModelInitor {
         element.appendAttributes(source);
     }
 
-    private void fillPropertyAttributes(Element targetElement, Element sourceElement, String... attributeNames) {
+    private void copyPropertyAttributes(Element targetElement, Element sourceElement, String... attributeNames) {
         attributeNames?.each { attrName ->
             targetElement.addAttribute(attrName, sourceElement.attributeValue(attrName)?.trim());
+        }
+    }
+
+    private void addElementAttributes(Element targetElement, Map<String, String> attributes) {
+        attributes.each { key, val ->
+            targetElement.addAttribute(key, val.trim());
         }
     }
 
@@ -188,7 +202,7 @@ class VLXModelInitor {
         Element linkTypes = vlxDocument.selectSingleNode("/vlx:vlx/typeCatalogue/linkTypes") as Element;
         configLinkTypeList.each { Element _linkType ->
             Element linkType = linkTypes.addElement("linkType");
-            fillPropertyAttributes(linkType, _linkType, 'localName', 'tGUID', 'color', 'displayName', 'isOrdered', 'isSymmertricLink', 'kindOf', 'LNDateTime', 'service', 'showArrows')
+            copyPropertyAttributes(linkType, _linkType, 'localName', 'tGUID', 'color', 'displayName', 'isOrdered', 'isSymmertricLink', 'kindOf', 'LNDateTime', 'service', 'showArrows')
 
             Iterator _iter1 = _linkType.elementIterator("property");
             while (_iter1.hasNext()) {
@@ -206,19 +220,19 @@ class VLXModelInitor {
             property.addAttribute("localName", _property.attributeValue("localName").trim());
             property.addAttribute("pGUID", computeMD5(_property.attributeValue("localName")));
         }
-        fillPropertyAttributes(property, _property, 'displayName', 'baseProperty', 'isHidden', 'idType', 'fGUID', 'isLabel', 'isVLVFToolTip', 'isPicklistColumn', 'mergeBehaviour', 'service', 'update')
+        copyPropertyAttributes(property, _property, 'displayName', 'baseProperty', 'isHidden', 'idType', 'fGUID', 'isLabel', 'isVLVFToolTip', 'isPicklistColumn', 'mergeBehaviour', 'service', 'update')
 
         List propertyChildren = _property.elements();
         propertyChildren.each { Element _child_property ->
             if (isElementOfTagName(_child_property, "attribute")) {
                 Element attribute = property.addElement("attribute");
-                fillPropertyAttributes(attribute, _child_property, 'isUser', 'userCanAdd', 'userCanRemove', 'vlvfDisplayAsGlyph');
+                copyPropertyAttributes(attribute, _child_property, 'isUser', 'userCanAdd', 'userCanRemove', 'vlvfDisplayAsGlyph');
 
                 List attrChildren = _child_property.elements();
                 attrChildren.each { Element _child_attribute ->
                     if (isElementOfTagName(_child_attribute, "Symbol")) {
                         Element symbol = attribute.addElement("Symbol");
-                        fillPropertyAttributes(symbol, _child_attribute, 'height', 'LNIconFile', 'position', 'shown', 'URI', 'width')
+                        copyPropertyAttributes(symbol, _child_attribute, 'height', 'LNIconFile', 'position', 'shown', 'URI', 'width')
 
                         List symbolChildren = _child_attribute.elements();
                         symbolChildren.each { Element _child_Symbol ->
@@ -250,10 +264,10 @@ class VLXModelInitor {
                 cardChildren.each { Element _child_card ->
                     if (isElementOfTagName(_child_card, "ConvertTabs")) {
                         Element convertTabs = card.addElement("ConvertTabs");
-                        fillPropertyAttributes(convertTabs, _child_card, 'numberOfSpaces');
+                        copyPropertyAttributes(convertTabs, _child_card, 'numberOfSpaces');
                     } else if (isElementOfTagName(_child_card, "InsertLineBreaks")) {
                         Element insertLineBreaks = card.addElement("InsertLineBreaks");
-                        fillPropertyAttributes(insertLineBreaks, _child_card, 'numberOfCharacters');
+                        copyPropertyAttributes(insertLineBreaks, _child_card, 'numberOfCharacters');
                     } else if (isElementOfTagName(_child_card, "RemoveLineBreaks")) {
                         card.addElement("RemoveLineBreaks");
                     }
@@ -262,7 +276,7 @@ class VLXModelInitor {
                 cardChildren.clear();
             } else if (isElementOfTagName(_child_property, "databaseProxySettings")) {
                 Element databaseProxySettings = property.addElement("databaseProxySettings");
-                fillPropertyAttributes(databaseProxySettings, _child_property, 'className', 'classID', 'instanceName', 'connectString');
+                copyPropertyAttributes(databaseProxySettings, _child_property, 'className', 'classID', 'instanceName', 'connectString');
             } else if (isElementOfTagName(_child_property, "identityProperty")) {
                 property.addElement("identityProperty");
             }
@@ -271,4 +285,22 @@ class VLXModelInitor {
         propertyChildren.clear();
     }
 
+    Document addVlxEndType(VlxEndType vlxEndType, List<PropertyInfo> propertyInfos) {
+        Document configDoc = DocumentHelper.parseText(sourceConfig);
+        Element endTypesElement = configDoc.selectSingleNode("root/endTypes") as Element;
+
+        Element endType = endTypesElement.addElement("endType");
+        addElementAttributes(endType, [localName: vlxEndType.localName(), displayName: vlxEndType.displayName()]);
+
+        Element imageEle = endType.addElement("imageURI");
+        addElementAttributes(imageEle, [width: vlxEndType.imageSize().toString(), height: vlxEndType.imageSize().toString()]);
+        imageEle.setText(vlxEndType.imageURI());
+
+        propertyInfos.each { PropertyInfo info ->
+            Element property = endType.addElement("property");
+            addElementAttributes(property, [localName: info.getLocalName(), displayName: info.getDisplayName(), isLabel: info.isIsLabel().toString(), canSearch: 'true', canShow: 'true']);
+        }
+        initVLX(SkyXMLUtils.formatXMLOutput(configDoc));
+        return DocumentHelper.parseText(baseVLX);
+    }
 }

@@ -10,9 +10,9 @@ import com.sky.vdk.vlx.generator.nodedata.NodeBean
  */
 abstract class NodeConfig {
     String nodeName;
-    def properties;
+    List<String> properties;
 
-    public static NodeConfig createInstance(String type, String nodeName, def properties) {
+    public static NodeConfig createInstance(String type, String nodeName, List<String> properties) {
         if (type == 'end') {
             return new EndNodeConfig(nodeName, properties);
         } else if (type == 'link') {
@@ -21,7 +21,7 @@ abstract class NodeConfig {
         return null;
     }
 
-    public abstract NodeBean newNode(def dataItem);
+    public abstract NodeBean newNode(Map<String, String> dataItem);
 
     public String toString() {
         def builder = getClass().toString() + ":" + nodeName + ":[";
