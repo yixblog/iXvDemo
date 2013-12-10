@@ -35,7 +35,7 @@ class HotelDAO implements IHotelDAO {
                 Hotel hotel = new Hotel(id: rs.getInt('hotelId'), name: rs.getString('hotelname'), address: rs.getString('address'));
                 Person person = new Person(id: rs.getInt('pkid'), name: rs.getString('name'), idCard: rs.getString('idcard'), birth: rs.getString('birth'));
                 person.setSexId(rs.getInt('sex'));
-                HotelLiveRecord record = new HotelLiveRecord(hotel: hotel, person: person, startDate: rs.getString('startdate'), endDate: rs.getString('enddate'))
+                HotelLiveRecord record = new HotelLiveRecord(id: rs.getInt('id'), hotel: hotel, person: person, startDate: rs.getString('startdate'), endDate: rs.getString('enddate'))
                 return record;
             }
         })

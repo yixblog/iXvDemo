@@ -13,7 +13,7 @@
 
     <LinkTypes>
 
-        <LinkType color="#000000" showArrows="true" localName="liveInHotel" displayName="旅馆住宿">
+        <LinkType isSymmetricLink="true"  color="#000000" showArrows="true" localName="liveInHotel" displayName="旅馆住宿">
             <property localName="date" isLabel="true" displayName="入住日期"/>
         </LinkType>
 
@@ -21,7 +21,7 @@
             <property localName="time" isLabel="true" displayName="事故时间"/>
         </LinkType>
 
-        <LinkType color="#FFFF00" localName="hasProperty" showArrows="true"
+        <LinkType isSymmetricLink="true"  color="#FF9900" localName="hasProperty" showArrows="true"
                   displayName="展开属性">
         </LinkType>
 

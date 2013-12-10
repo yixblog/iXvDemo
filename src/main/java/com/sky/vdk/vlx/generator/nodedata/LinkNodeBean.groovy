@@ -12,6 +12,7 @@ import org.dom4j.Element
 class LinkNodeBean extends NodeBean {
     EndNodeBean end1;
     EndNodeBean end2;
+    LinkDirection direction;
 
     void linkNodes(EndNodeBean end1, EndNodeBean end2) {
         this.end1 = end1;
@@ -24,8 +25,13 @@ class LinkNodeBean extends NodeBean {
     @Override
     Element buildElement(Element parentNode) {
         Element linkNode = parentNode.addElement("link");
-        addAttributes(linkNode, ["catType": typeName, "end1identity": end1.getIdentityProperty(),
-                "end2identity": end2.getIdentityProperty(), "id": getNodeId(), "end1id": end1.getNodeId(), "end2id": end2.getNodeId()]);
+
+
+        Map<String, String> attributes = [catType: typeName, end1identity: end1.getIdentityProperty(), end2identity: end2.getIdentityProperty(), id: getNodeId(), end1id: end1.getNodeId(), end2id: end2.getNodeId()]
+        if (direction != null) {
+            attributes['direction'] = direction.toString();
+        }
+        addAttributes(linkNode, attributes);
         putProperties(linkNode);
         return linkNode;
     }

@@ -5,6 +5,8 @@ import com.sky.app.dao.*
 import com.sky.app.dao.beans.*
 import com.sky.vdk.vlx.generator.VLXGenerator
 import com.sky.vdk.vlx.generator.nodedata.EndNodeBean
+import com.sky.vdk.vlx.generator.nodedata.LinkDirection
+import com.sky.vdk.vlx.generator.nodedata.LinkNodeBean
 import org.springframework.stereotype.Service
 
 import javax.annotation.Resource
@@ -50,23 +52,23 @@ class VLXBuilder implements IVLXBuilder {
         EndNodeBean personNode = generator.addEndByPojo(person);
         EndNodeBean networkProperty = generator.addEnd('personProperty', [identityProperty: 'network', label: '上网信息', uri: 'data/vlx/networks.vlx', personid: id.toString()]);
         networkProperty.configImage('VLImages/gifs/new/WWW.png', 32, 32);
-        generator.connectNodes('hasProperty', personNode, networkProperty, [:]);
+        generator.connectNodes('hasProperty', personNode, networkProperty, [:]).setDirection(LinkDirection.forward);
 
         EndNodeBean hotelProperty = generator.addEnd('personProperty', [identityProperty: 'hotel', label: '旅馆信息', uri: 'data/vlx/hotelRecord.vlx', personid: id.toString()]);
         hotelProperty.configImage('VLImages/gifs/new/Town.png', 32, 32)
-        generator.connectNodes('hasProperty', personNode, hotelProperty, [:]);
+        generator.connectNodes('hasProperty', personNode, hotelProperty, [:]).setDirection(LinkDirection.forward);
 
         EndNodeBean carProperty = generator.addEnd('personProperty', [identityProperty: 'cars', label: '车辆信息', uri: 'data/vlx/cars.vlx', personid: id.toString()]);
         carProperty.configImage('VLImages/gifs/new/Drivers License.png', 32, 32);
-        generator.connectNodes('hasProperty', personNode, carProperty, [:]);
+        generator.connectNodes('hasProperty', personNode, carProperty, [:]).setDirection(LinkDirection.forward);
 
         EndNodeBean trafficProperty = generator.addEnd('personProperty', [identityProperty: 'traffic', label: '交通违法信息', uri: 'data/vlx/traffic.vlx', personid: id.toString()]);
         trafficProperty.configImage('VLImages/gifs/new/Road Block.png', 32, 32);
-        generator.connectNodes('hasProperty', personNode, trafficProperty, [:]);
+        generator.connectNodes('hasProperty', personNode, trafficProperty, [:]).setDirection(LinkDirection.forward);
 
         EndNodeBean justiceProperty = generator.addEnd('personProperty', [identityProperty: 'justice', label: '司法信息', uri: 'data/vlx/justice.vlx', personid: id.toString()]);
         justiceProperty.configImage('VLImages/gifs/new/Profmale.png', 32, 32);
-        generator.connectNodes('hasProperty', personNode, justiceProperty, [:]);
+        generator.connectNodes('hasProperty', personNode, justiceProperty, [:]).setDirection(LinkDirection.forward);
         return generator.generateVLX();
     }
 
@@ -138,15 +140,15 @@ class VLXBuilder implements IVLXBuilder {
 
         EndNodeBean reformProperty = generator.addEnd('personProperty', [identityProperty: 'reform', label: '矫正方案', uri: 'data/vlx/reform.vlx', personid: personId.toString()]);
         reformProperty.configImage('VLImages/gifs/new/spreadsheetdoc.png', 32, 32);
-        generator.connectNodes('hasProperty', justiceProperty, reformProperty, [:]);
+        generator.connectNodes('hasProperty', justiceProperty, reformProperty, [:]).setDirection(LinkDirection.forward);
 
         EndNodeBean educationProperty = generator.addEnd('personProperty', [identityProperty: 'educate', label: '集中学习', uri: 'data/vlx/education.vlx', personid: personId.toString()]);
         educationProperty.configImage('VLImages/gifs/new/school.png', 32, 32);
-        generator.connectNodes('hasProperty', justiceProperty, educationProperty, [:]);
+        generator.connectNodes('hasProperty', justiceProperty, educationProperty, [:]).setDirection(LinkDirection.forward);
 
         EndNodeBean volunteerProperty = generator.addEnd('personProperty', [identityProperty: 'volunteer', label: '公益劳动', uri: 'data/vlx/volunteer.vlx', personid: personId.toString()]);
         volunteerProperty.configImage('VLImages/gifs/new/Trash.png', 32, 32);
-        generator.connectNodes('hasProperty', justiceProperty, volunteerProperty, [:])
+        generator.connectNodes('hasProperty', justiceProperty, volunteerProperty, [:]).setDirection(LinkDirection.forward)
         return generator.generateVLX();
     }
 

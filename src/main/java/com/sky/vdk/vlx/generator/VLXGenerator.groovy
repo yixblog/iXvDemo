@@ -190,14 +190,15 @@ class VLXGenerator {
         }
         return properties;
     }
-/**
- * 关联两个节点
- * @param catType 节点类型
- * @param end1 起始节点
- * @param end2 结束节点
- * @param params 连接参数
- * @return
- */
+
+    /**
+     * 关联两个节点
+     * @param catType 节点类型
+     * @param end1 起始节点
+     * @param end2 结束节点
+     * @param params 连接参数
+     * @return
+     */
     LinkNodeBean connectNodes(String catType, EndNodeBean end1, EndNodeBean end2, Map<String, String> params) {
         def linkNode = getLinkConfig(catType)?.newNode(params) as LinkNodeBean;
         linkNode.linkNodes(end1, end2);
