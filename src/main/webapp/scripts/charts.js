@@ -224,7 +224,7 @@ var IXVChart = function () {
         //fullscreen
         var isFullScreen = false;
         var fullscreenDiv;
-        var fullScreenBtn = $("<img>", {src: "VLImages/button/fullscreen.gif", "class": "imgbutton", alt: "全屏"}).appendTo(tdBox);
+        var fullScreenBtn = $("<img>", {src: "VLImages/button/fullscreen.gif", "class": "imgbutton", alt: "全屏", title: "全屏"}).appendTo(tdBox);
         fullScreenBtn.hover(function () {
             if ($(this).hasClass("imgbutton")) {
                 $(this).attr("class", "imgbuttonover");
@@ -246,6 +246,7 @@ var IXVChart = function () {
                 fitParent();
                 $(this).attr("src", "VLImages/button/reback.gif");
                 $(this).attr("alt", "还原");
+                $(this).attr("title", "还原");
                 isFullScreen = true;
             } else {
                 viewTable.appendTo(parentNode);
@@ -254,6 +255,7 @@ var IXVChart = function () {
                 fullscreenDiv = null;
                 $(this).attr("src", "VLImages/button/fullscreen.gif");
                 $(this).attr("alt", "全屏");
+                $(this).attr("title", "全屏");
                 isFullScreen = false;
             }
         });

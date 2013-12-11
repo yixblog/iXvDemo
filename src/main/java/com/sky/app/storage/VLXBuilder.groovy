@@ -6,7 +6,6 @@ import com.sky.app.dao.beans.*
 import com.sky.vdk.vlx.generator.VLXGenerator
 import com.sky.vdk.vlx.generator.nodedata.EndNodeBean
 import com.sky.vdk.vlx.generator.nodedata.LinkDirection
-import com.sky.vdk.vlx.generator.nodedata.LinkNodeBean
 import org.springframework.stereotype.Service
 
 import javax.annotation.Resource
@@ -41,7 +40,7 @@ class VLXBuilder implements IVLXBuilder {
     String findPerson(int id) {
         Person person = personDAO.findPersonById(id);
         VLXGenerator generator = new VLXGenerator();
-        EndNodeBean end = generator.addEndByPojo(person);
+        generator.addEndByPojo(person);
         return generator.generateVLX();
     }
 
