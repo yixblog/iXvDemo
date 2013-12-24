@@ -10,7 +10,7 @@ $(document).ready(function () {
     $.ajax({
         url: "data/vlx/person.vlx",
         type:"post",
-        data:{personId:1},
+        data:{personId:2},
         success: function (xml) {
             if (xml.length > 0) {
                 iXvChart.setInit(function () {
@@ -67,9 +67,9 @@ $(document).ready(function () {
 
     chartMenuManager.registerHandler({
         manager: chartMenuManager,
-        typeName: "car",
+        typeName: "punishRecord",
         menus: {
-            800: "查看车辆属性"
+            800: "查看信息"
         },
         actions: {
             800: function () {
@@ -93,48 +93,9 @@ $(document).ready(function () {
 
     chartMenuManager.registerHandler({
         manager: chartMenuManager,
-        typeName: "trafficOffence",
+        typeName: "flight",
         menus: {
-            800: "查看交通事故属性"
-        },
-        actions: {
-            800: function () {
-                iXvChart.showProperties();
-            }
-        }
-    });
-
-    chartMenuManager.registerHandler({
-        manager: chartMenuManager,
-        typeName: "justiceEduAttend",
-        menus: {
-            800: "查看属性"
-        },
-        actions: {
-            800: function () {
-                iXvChart.showProperties();
-            }
-        }
-    });
-
-    chartMenuManager.registerHandler({
-        manager: chartMenuManager,
-        typeName: "justiceReformPlan",
-        menus: {
-            800: "查看属性"
-        },
-        actions: {
-            800: function () {
-                iXvChart.showProperties();
-            }
-        }
-    });
-
-    chartMenuManager.registerHandler({
-        manager: chartMenuManager,
-        typeName: "volunteerWork",
-        menus: {
-            800: "查看属性"
+            800: "查看航班信息"
         },
         actions: {
             800: function () {

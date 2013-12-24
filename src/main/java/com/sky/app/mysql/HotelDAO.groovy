@@ -1,44 +1,49 @@
 package com.sky.app.mysql
 
 import com.sky.app.dao.IHotelDAO
-import com.sky.app.dao.beans.Hotel
-import com.sky.app.dao.beans.HotelLiveRecord
-import com.sky.app.dao.beans.Person
-import org.springframework.jdbc.core.JdbcTemplate
+import com.sky.app.dao.pojo.Hotel
+import org.apache.log4j.Logger
 import org.springframework.jdbc.core.RowMapper
 import org.springframework.stereotype.Repository
 
-import javax.annotation.Resource
 import java.sql.ResultSet
 import java.sql.SQLException
 
 /**
- * dao
- * Created by yixian on 13-12-10.
+ * Created by Yixian on 13-12-21.
  */
 @Repository('hotelDAO')
-class HotelDAO implements IHotelDAO {
-    @Resource(name = 'jdbcTemplate')
-    private JdbcTemplate template;
+class HotelDAO extends BasicCRUDDAO<Hotel> implements IHotelDAO{
+    private Logger logger = Logger.getLogger(getClass())
 
     @Override
-    List<HotelLiveRecord> listLiveRecordByPerson(int personId) {
-        String sql = """select h.pkid hotelId,h.hotelname,h.address,
-                         r.pkid id,r.startdate,r.enddate,
-                         p.* from person p
-                         left join liverecord r on r.personid=p.pkid
-                         left join hotel h on h.pkid=r.hotelid
-                         where p.pkid=?"""
-        return template.query(sql, [personId].toArray(), new RowMapper<HotelLiveRecord>() {
-            @Override
-            HotelLiveRecord mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Hotel hotel = new Hotel(id: rs.getInt('hotelId'), name: rs.getString('hotelname'), address: rs.getString('address'));
-                Person person = new Person(id: rs.getInt('pkid'), name: rs.getString('name'), idCard: rs.getString('idcard'), birth: rs.getString('birth'));
-                person.setSexId(rs.getInt('sex'));
-                HotelLiveRecord record = new HotelLiveRecord(id: rs.getInt('id'), hotel: hotel, person: person, startDate: rs.getString('startdate'), endDate: rs.getString('enddate'))
-                return record;
-            }
-        })
+    String getTableName() {
+        return 'hotel'
+    }
+
+    @Override
+    Map<String, String> getReferenceMapping() {
+        return [id: 'id', code: 'code', name: 'name', legal: 'legalPerson']
+    }
+
+    @Override
+    protected String getBasicQuerySql() {
+        String sql = "select id,code,name,legal from $tableName"
+        logger.debug("find one sql:$sql")
+        return sql;
+    }
+
+    @Override
+    protected RowMapper<Hotel> getFindBasicRowMapper() {
+        return new HotelRowMapper()
+    }
+
+    private class HotelRowMapper implements RowMapper<Hotel> {
+
+        @Override
+        Hotel mapRow(ResultSet rs, int rowNum) throws SQLException {
+            new Hotel(id: rs.getInt('id'), code: rs.getString('code'), name: rs.getString('name'), legalPerson: rs.getString('legal'));
+        }
     }
 
 }

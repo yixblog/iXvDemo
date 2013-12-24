@@ -35,7 +35,7 @@ class VLXController {
         return vlxBuilder.expandPersonParams(personId);
     }
 
-    @RequestMapping('/networks.vlx')
+    @RequestMapping('/netcafe.vlx')
     @ResponseBody
     String getPersonNetCafeLogs(@RequestParam String params) {
         return vlxBuilder.expandWebCafeRecord(solvePersonId(params));
@@ -47,45 +47,20 @@ class VLXController {
         return vlxBuilder.expandHotelRecord(solvePersonId(params));
     }
 
+    @RequestMapping('/flights.vlx')
+    @ResponseBody
+    String listPersonFlights(@RequestParam String params) {
+        return vlxBuilder.expandFlightRecord(solvePersonId(params))
+    }
+
+    @RequestMapping('/punish.vlx')
+    @ResponseBody
+    String listPunishment(@RequestParam String params) {
+        return vlxBuilder.expandPunishRecord(solvePersonId(params))
+    }
+
     private int solvePersonId(String params) {
         JSONObject paramObj = JSONObject.parseObject(params);
         paramObj.getIntValue('personid');
     }
-
-    @RequestMapping('/cars.vlx')
-    @ResponseBody
-    String listPersonCars(@RequestParam String params) {
-        return vlxBuilder.expandCarInfo(solvePersonId(params))
-    }
-
-    @RequestMapping('/traffic.vlx')
-    @ResponseBody
-    String getPersonTrafficOffence(@RequestParam String params) {
-        return vlxBuilder.expandTrafficOffences(solvePersonId(params))
-    }
-
-    @RequestMapping('/justice.vlx')
-    @ResponseBody
-    String expandJusticeNodes(@RequestParam String params) {
-        return vlxBuilder.expandJustice(solvePersonId(params))
-    }
-
-    @RequestMapping('/reform.vlx')
-    @ResponseBody
-    String showPersonReformPlans(@RequestParam String params) {
-        return vlxBuilder.expandReform(solvePersonId(params))
-    }
-
-    @RequestMapping('/education.vlx')
-    @ResponseBody
-    String listPersonEducationLog(@RequestParam String params) {
-        return vlxBuilder.expandEducation(solvePersonId(params))
-    }
-
-    @RequestMapping('/volunteer.vlx')
-    @ResponseBody
-    String listPersonVolunteerWorks(@RequestParam String params) {
-        return vlxBuilder.expandVolunteer(solvePersonId(params))
-    }
-
 }

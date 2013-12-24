@@ -1,15 +1,10 @@
 package com.sky.app.dao;
 
-import com.sky.app.dao.beans.HotelLiveRecord;
 
-import java.util.List;
+import com.sky.app.dao.pojo.Hotel;
 
 /**
- * as name
- * Created by yixian on 13-12-10.
+ * Created by dyb on 13-12-23.
  */
-public interface IHotelDAO {
-
-    public List<HotelLiveRecord> listLiveRecordByPerson(int personId);
-
+public interface IHotelDAO extends IBasicCRUDDAO<Hotel> {
 }

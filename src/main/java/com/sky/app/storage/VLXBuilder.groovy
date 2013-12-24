@@ -2,7 +2,11 @@ package com.sky.app.storage
 
 import com.sky.app.core.IVLXBuilder
 import com.sky.app.dao.*
-import com.sky.app.dao.beans.*
+import com.sky.app.dao.pojo.AirRecord
+import com.sky.app.dao.pojo.CafeRecord
+import com.sky.app.dao.pojo.LiveRecord
+import com.sky.app.dao.pojo.Person
+import com.sky.app.dao.pojo.PunishRecord
 import com.sky.vdk.vlx.generator.VLXGenerator
 import com.sky.vdk.vlx.generator.nodedata.EndNodeBean
 import com.sky.vdk.vlx.generator.nodedata.LinkDirection
@@ -19,82 +23,84 @@ import javax.annotation.Resource
  */
 @Service("vlxBuilder")
 class VLXBuilder implements IVLXBuilder {
-    @Resource(name = 'personDAO')
+    private String imageURLPerfix = "";
+    @Resource
     private IPersonDAO personDAO;
-    @Resource(name = 'carDAO')
-    private ICarDAO carDAO;
-    @Resource(name = 'hotelDAO')
+    @Resource
+    private IAirRecordDAO airRecordDAO;
+    @Resource
+    private ICafeRecordDAO cafeRecordDAO;
+    @Resource
+    private IFlightDAO flightDAO;
+    @Resource
+    private ILiveRecordDAO liveRecordDAO;
+    @Resource
     private IHotelDAO hotelDAO;
-    @Resource(name = 'internetCafeDAO')
-    private IInternetCafeDAO internetCafeDAO;
-    @Resource(name = 'trafficOffenceDAO')
-    private ITrafficOffenceDAO trafficOffenceDAO;
-    @Resource(name = 'reformPlanDAO')
-    private IReformPlanDAO reformPlanDAO;
-    @Resource(name = 'justiceEducationAttendDAO')
-    private IJusticeEducationAttendDAO justiceEducationAttendDAO;
-    @Resource(name = 'volunteerWorkDAO')
-    private IVolunteerWorkDAO volunteerWorkDAO;
+    @Resource
+    private INetCafeDAO netCafeDAO;
+    @Resource
+    private IPunishRecordDAO punishRecordDAO;
 
     @Override
     String findPerson(int id) {
-        Person person = personDAO.findPersonById(id);
+        Person person = new Person(id: id)
+        person = personDAO.findOneObject(person, 'id');
         VLXGenerator generator = new VLXGenerator();
-        generator.addEndByPojo(person);
+        generator.addEndByPojo(person)
         return generator.generateVLX();
     }
 
     @Override
     String expandPersonParams(int id) {
-        Person person = personDAO.findPersonById(id);
         VLXGenerator generator = new VLXGenerator();
-        EndNodeBean personNode = generator.addEndByPojo(person);
-        EndNodeBean networkProperty = generator.addEnd('personProperty', [identityProperty: 'network', label: '上网信息', uri: 'data/vlx/networks.vlx', personid: id.toString()]);
-        networkProperty.configImage('VLImages/gifs/new/WWW.png', 32, 32);
-        generator.connectNodes('hasProperty', personNode, networkProperty, [:]).setDirection(LinkDirection.forward);
+        Person p = new Person(id: id);
+        p = personDAO.findOneObject(p, 'id');
+        EndNodeBean personEnd = generator.addEndByPojo(p);
 
-        EndNodeBean hotelProperty = generator.addEnd('personProperty', [identityProperty: 'hotel', label: '旅馆信息', uri: 'data/vlx/hotelRecord.vlx', personid: id.toString()]);
-        hotelProperty.configImage('VLImages/gifs/new/Town.png', 32, 32)
-        generator.connectNodes('hasProperty', personNode, hotelProperty, [:]).setDirection(LinkDirection.forward);
+        EndNodeBean flightProperties = createFlightPropertiesNode(generator, id)
+        generator.connectNodes('hasProperty', personEnd, flightProperties, [:]).setDirection(LinkDirection.forward)
 
-        EndNodeBean carProperty = generator.addEnd('personProperty', [identityProperty: 'cars', label: '车辆信息', uri: 'data/vlx/cars.vlx', personid: id.toString()]);
-        carProperty.configImage('VLImages/gifs/new/Drivers License.png', 32, 32);
-        generator.connectNodes('hasProperty', personNode, carProperty, [:]).setDirection(LinkDirection.forward);
+        EndNodeBean hotelProperties = createHotelPropertiesNode(generator, id)
+        generator.connectNodes('hasProperty', personEnd, hotelProperties, [:]).setDirection(LinkDirection.forward);
 
-        EndNodeBean trafficProperty = generator.addEnd('personProperty', [identityProperty: 'traffic', label: '交通违法信息', uri: 'data/vlx/traffic.vlx', personid: id.toString()]);
-        trafficProperty.configImage('VLImages/gifs/new/Road Block.png', 32, 32);
-        generator.connectNodes('hasProperty', personNode, trafficProperty, [:]).setDirection(LinkDirection.forward);
+        EndNodeBean punishProperties = createPunishPropertiesNode(generator, id)
+        generator.connectNodes('hasProperty', personEnd, punishProperties, [:]).setDirection(LinkDirection.forward);
 
-        EndNodeBean justiceProperty = generator.addEnd('personProperty', [identityProperty: 'justice', label: '司法信息', uri: 'data/vlx/justice.vlx', personid: id.toString()]);
-        justiceProperty.configImage('VLImages/gifs/new/Profmale.png', 32, 32);
-        generator.connectNodes('hasProperty', personNode, justiceProperty, [:]).setDirection(LinkDirection.forward);
+        EndNodeBean netProperties = createNetRecordPropertiesNode(generator, id)
+        generator.connectNodes('hasProperty', personEnd, netProperties, [:]).setDirection(LinkDirection.forward);
         return generator.generateVLX();
     }
 
-    @Override
-    String expandCarInfo(int personId) {
-        VLXGenerator generator = new VLXGenerator();
-        EndNodeBean carProperty = generator.addEnd('personProperty', [identityProperty: 'cars', label: '车辆信息', uri: 'data/vlx/cars.vlx', personid: personId.toString()]);
-        carProperty.configImage('VLImages/gifs/new/Drivers License.png', 32, 32);
+    private EndNodeBean createNetRecordPropertiesNode(VLXGenerator generator, int id) {
+        EndNodeBean netProperties = generator.addEnd('personProperty', [identityProperty: 'prop-04', label: '上网记录', uri: 'data/vlx/netcafe.vlx', personid: "$id"]);
+        netProperties
+    }
 
-        List<Car> cars = carDAO.listDriverCars(personId);
-        for (Car car : cars) {
-            EndNodeBean carEnd = generator.addEndByPojo(car);
-            generator.connectNodes('hasProperty', carProperty, carEnd, [:]);
-        }
-        return generator.generateVLX();
+    private EndNodeBean createPunishPropertiesNode(VLXGenerator generator, int id) {
+        EndNodeBean punishProperties = generator.addEnd('personProperty', [identityProperty: 'prop-03', label: '处罚记录', uri: 'data/vlx/punish.vlx', personid: "$id"]);
+        punishProperties
+    }
+
+    private EndNodeBean createHotelPropertiesNode(VLXGenerator generator, int id) {
+        EndNodeBean hotelProperties = generator.addEnd('personProperty', [identityProperty: 'prop-02', label: '住宿信息', uri: 'data/vlx/hotelRecord.vlx', personid: "$id"]);
+        hotelProperties
+    }
+
+    private EndNodeBean createFlightPropertiesNode(VLXGenerator generator, int id) {
+        EndNodeBean flightProperties = generator.addEnd('personProperty', [identityProperty: 'prop-01', label: '航班信息', uri: 'data/vlx/flights.vlx', personid: "$id"]);
+        flightProperties
     }
 
     @Override
     String expandHotelRecord(int personId) {
         VLXGenerator generator = new VLXGenerator();
-        EndNodeBean hotelProperty = generator.addEnd('personProperty', [identityProperty: 'hotel', label: '旅馆信息', uri: 'data/vlx/hotelRecord.vlx', personid: personId.toString()]);
-        hotelProperty.configImage('VLImages/gifs/new/Town.png', 32, 32);
-
-        List<HotelLiveRecord> records = hotelDAO.listLiveRecordByPerson(personId);
-        for (HotelLiveRecord record : records) {
-            EndNodeBean recEnd = generator.addEndByPojo(record);
-            generator.connectNodes('liveInHotel', hotelProperty, recEnd, [date: record.getStartDate()]);
+        EndNodeBean hotelProp = createHotelPropertiesNode(generator, personId);
+        Person p = new Person(id: personId);
+        LiveRecord queryExample = new LiveRecord(person: p);
+        List<LiveRecord> lives = liveRecordDAO.findMany(queryExample, 'pserson');
+        for (LiveRecord record : lives) {
+            EndNodeBean hotelNode = generator.addEndByPojo(record.getHotel());
+            generator.connectNodes('liveInHotel', hotelProp, hotelNode, [date: record.getEnterTimeString(), identityProperty: "live-${record.personId}-${record.hotelId}-${record.enterTimeString}"])
         }
         return generator.generateVLX();
     }
@@ -102,94 +108,42 @@ class VLXBuilder implements IVLXBuilder {
     @Override
     String expandWebCafeRecord(int personId) {
         VLXGenerator generator = new VLXGenerator();
-
-        EndNodeBean networkProperty = generator.addEnd('personProperty', [identityProperty: 'network', label: '上网信息', uri: 'data/vlx/networks.vlx', personid: personId.toString()]);
-        networkProperty.configImage('VLImages/gifs/new/WWW.png', 32, 32);
-
-        List<InternetCafeRecord> cafeRecords = internetCafeDAO.listCafeRecordByPerson(personId);
-        for (InternetCafeRecord rec : cafeRecords) {
-            InternetCafe cafe = rec.getCafe();
-            EndNodeBean cafeNode = generator.addEndByPojo(cafe);
-            generator.connectNodes('netcafelog', networkProperty, cafeNode, [identityProperty: rec.getId().toString(), time: rec.getStartTime()]);
+        EndNodeBean webProp = createNetRecordPropertiesNode(generator, personId);
+        Person examplePerson = new Person(id: personId)
+        CafeRecord example = new CafeRecord(person: examplePerson)
+        List<CafeRecord> records = cafeRecordDAO.findMany(example, 'pserson');
+        for (CafeRecord record : records) {
+            EndNodeBean cafeNode = generator.addEndByPojo(record.getCafe());
+            generator.connectNodes('netcafelog', webProp, cafeNode, [identityProperty: "net-$record.personId-$record.cafeId-$record.onlineTimeString", time: record.getOnlineTimeString(), ip: record.getIp()])
         }
         return generator.generateVLX();
     }
 
     @Override
-    String expandTrafficOffences(int personId) {
+    String expandFlightRecord(int personId) {
         VLXGenerator generator = new VLXGenerator();
-
-        EndNodeBean trafficProperty = generator.addEnd('personProperty', [identityProperty: 'traffic', label: '交通违法信息', uri: 'data/vlx/traffic.vlx', personid: personId.toString()]);
-        trafficProperty.configImage('VLImages/gifs/new/Road Block.png', 32, 32);
-
-        List<TrafficOffence> offences = trafficOffenceDAO.listDriverTrafficOffences(personId);
-        offences.each {
-            EndNodeBean offenceEnd = generator.addEndByPojo(it);
-            generator.connectNodes('inAccident', trafficProperty, offenceEnd, [time: it.getTime()]);
+        EndNodeBean flightProp = createFlightPropertiesNode(generator, personId);
+        Person examplePerson = new Person(id: personId);
+        AirRecord example = new AirRecord(person: examplePerson);
+        List<AirRecord> records = airRecordDAO.findMany(example, 'person');
+        for (AirRecord rec : records) {
+            EndNodeBean flightNode = generator.addEndByPojo(rec.getFlight());
+            generator.connectNodes('onflight', flightProp, flightNode, [seat: rec.getSeat()])
         }
         return generator.generateVLX();
     }
 
     @Override
-    String expandJustice(int personId) {
-        VLXGenerator generator = new VLXGenerator();
-
-        EndNodeBean justiceProperty = generator.addEnd('personProperty', [identityProperty: 'justice', label: '司法信息', uri: 'data/vlx/justice.vlx', personid: personId.toString()]);
-        justiceProperty.configImage('VLImages/gifs/new/Profmale.png', 32, 32);
-
-        EndNodeBean reformProperty = generator.addEnd('personProperty', [identityProperty: 'reform', label: '矫正方案', uri: 'data/vlx/reform.vlx', personid: personId.toString()]);
-        reformProperty.configImage('VLImages/gifs/new/spreadsheetdoc.png', 32, 32);
-        generator.connectNodes('hasProperty', justiceProperty, reformProperty, [:]).setDirection(LinkDirection.forward);
-
-        EndNodeBean educationProperty = generator.addEnd('personProperty', [identityProperty: 'educate', label: '集中学习', uri: 'data/vlx/education.vlx', personid: personId.toString()]);
-        educationProperty.configImage('VLImages/gifs/new/school.png', 32, 32);
-        generator.connectNodes('hasProperty', justiceProperty, educationProperty, [:]).setDirection(LinkDirection.forward);
-
-        EndNodeBean volunteerProperty = generator.addEnd('personProperty', [identityProperty: 'volunteer', label: '公益劳动', uri: 'data/vlx/volunteer.vlx', personid: personId.toString()]);
-        volunteerProperty.configImage('VLImages/gifs/new/Trash.png', 32, 32);
-        generator.connectNodes('hasProperty', justiceProperty, volunteerProperty, [:]).setDirection(LinkDirection.forward)
-        return generator.generateVLX();
-    }
-
-    @Override
-    String expandReform(int personId) {
-        VLXGenerator generator = new VLXGenerator();
-        EndNodeBean reformProperty = generator.addEnd('personProperty', [identityProperty: 'reform', label: '矫正方案', uri: 'data/vlx/reform.vlx', personid: personId.toString()]);
-        reformProperty.configImage('VLImages/gifs/new/spreadsheetdoc.png', 32, 32);
-
-        List<JusticeReformPlan> plans = reformPlanDAO.listPlansOfPerson(personId);
-        plans.each {
-            EndNodeBean planEnd = generator.addEndByPojo(it);
-            generator.connectNodes('normal', reformProperty, planEnd, [:])
+    String expandPunishRecord(int personId) {
+        VLXGenerator generator = new VLXGenerator()
+        EndNodeBean punishProp = createPunishPropertiesNode(generator,personId)
+        Person exP = new Person(id: personId)
+        PunishRecord example = new PunishRecord(person: exP)
+        List<PunishRecord> records = punishRecordDAO.findMany(example,'person');
+        for(PunishRecord rec:records){
+            EndNodeBean punish = generator.addEndByPojo(rec);
+            generator.connectNodes('normal',punishProp,punish,[:])
         }
-        return generator.generateVLX();
-    }
-
-    @Override
-    String expandEducation(int personId) {
-        VLXGenerator generator = new VLXGenerator();
-        EndNodeBean educationProperty = generator.addEnd('personProperty', [identityProperty: 'educate', label: '集中学习', uri: 'data/vlx/education.vlx', personid: personId.toString()]);
-        educationProperty.configImage('VLImages/gifs/new/school.png', 32, 32);
-
-        List<JusticeEducationAttended> educations = justiceEducationAttendDAO.findEducationAttendByPerson(personId);
-        educations.each {
-            EndNodeBean eduEnd = generator.addEndByPojo(it);
-            generator.connectNodes('normal', educationProperty, eduEnd, [:]);
-        }
-        return generator.generateVLX();
-    }
-
-    @Override
-    String expandVolunteer(int personId) {
-        VLXGenerator generator = new VLXGenerator();
-        EndNodeBean volunteerProperty = generator.addEnd('personProperty', [identityProperty: 'volunteer', label: '公益劳动', uri: 'data/vlx/volunteer.vlx', personid: personId.toString()]);
-        volunteerProperty.configImage('VLImages/gifs/new/Trash.png', 32, 32);
-
-        List<JusticeVolunteerWork> volunteers = volunteerWorkDAO.listPersonVolunteerWorks(personId);
-        volunteers.each {
-            EndNodeBean volNode = generator.addEndByPojo(it);
-            generator.connectNodes('normal', volunteerProperty, volNode, [:]);
-        }
-        return generator.generateVLX();
+        return generator.generateVLX()
     }
 }

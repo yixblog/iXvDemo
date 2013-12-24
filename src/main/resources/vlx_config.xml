@@ -17,16 +17,17 @@
             <property localName="date" isLabel="true" displayName="入住日期"/>
         </LinkType>
 
-        <LinkType color="#ff0000" showArrows="true" localName="inAccident" displayName="交通事故">
-            <property localName="time" isLabel="true" displayName="事故时间"/>
-        </LinkType>
-
         <LinkType isSymmetricLink="true"  color="#FF9900" localName="hasProperty" showArrows="true"
                   displayName="展开属性">
         </LinkType>
 
+        <linkType color="#0000ff" localName="onflight" displayName="乘坐航班">
+            <property localName="seat" displayName="座位号" isLabel="true"/>
+        </linkType>
+
         <LinkType color="#000000" localName="netcafelog" displayName="上网记录">
             <property localName="time" displayName="时间" isLabel="true"/>
+            <property localName="ip" displayName="ip" isLabel="true"/>
         </LinkType>
 
         <LinkType color="#000000" localName="normal"

@@ -24,15 +24,11 @@ public class VLXFileCreater {
 
     @Test
     public void createVLXFiles() throws IOException {
-        FileUtils.write(new File(BASE_FOLDER + "cars.vlx"), vlxBuilder.expandCarInfo(1));
-        FileUtils.write(new File(BASE_FOLDER + "education.vlx"), vlxBuilder.expandEducation(1));
-        FileUtils.write(new File(BASE_FOLDER + "hotelRecord.vlx"), vlxBuilder.expandHotelRecord(1));
-        FileUtils.write(new File(BASE_FOLDER + "justice.vlx"), vlxBuilder.expandJustice(1));
-        FileUtils.write(new File(BASE_FOLDER + "networks.vlx"), vlxBuilder.expandWebCafeRecord(1));
-        FileUtils.write(new File(BASE_FOLDER + "person.vlx"), vlxBuilder.findPerson(1));
-        FileUtils.write(new File(BASE_FOLDER + "personProperties.vlx"), vlxBuilder.expandPersonParams(1));
-        FileUtils.write(new File(BASE_FOLDER + "reform.vlx"), vlxBuilder.expandReform(1));
-        FileUtils.write(new File(BASE_FOLDER + "traffic.vlx"), vlxBuilder.expandTrafficOffences(1));
-        FileUtils.write(new File(BASE_FOLDER + "volunteer.vlx"), vlxBuilder.expandVolunteer(1));
+        FileUtils.write(new File(BASE_FOLDER + "flights.vlx"), vlxBuilder.expandFlightRecord(2));
+        FileUtils.write(new File(BASE_FOLDER + "hotelRecord.vlx"), vlxBuilder.expandHotelRecord(2));
+        FileUtils.write(new File(BASE_FOLDER + "networks.vlx"), vlxBuilder.expandWebCafeRecord(2));
+        FileUtils.write(new File(BASE_FOLDER + "person.vlx"), vlxBuilder.findPerson(2));
+        FileUtils.write(new File(BASE_FOLDER + "personProperties.vlx"), vlxBuilder.expandPersonParams(2));
+        FileUtils.write(new File(BASE_FOLDER + "punish.vlx"), vlxBuilder.expandPunishRecord(2));
     }
 }

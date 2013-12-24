@@ -1,7 +1,5 @@
 package com.sky.test
 
-import org.apache.commons.lang.ClassUtils
-import org.apache.commons.lang.reflect.FieldUtils
 import org.junit.Test
 
 /**
@@ -10,6 +8,5 @@ import org.junit.Test
 class GroovyBooleanTest {
     @Test
     public void testBoolean(){
-        FieldUtils.readField()
     }
 }

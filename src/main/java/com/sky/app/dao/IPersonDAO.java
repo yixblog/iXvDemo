@@ -1,12 +1,10 @@
 package com.sky.app.dao;
 
-import com.sky.app.dao.beans.Person;
+
+import com.sky.app.dao.pojo.Person;
 
 /**
- * 人员信息DAO
- * Created by yixian on 13-12-10.
+ * Created by dyb on 13-12-23.
  */
-public interface IPersonDAO {
-
-    public Person findPersonById(int id);
+public interface IPersonDAO extends IBasicCRUDDAO<Person> {
 }
