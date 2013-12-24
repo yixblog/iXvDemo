@@ -15,6 +15,8 @@ public interface IVLXBuilder {
 
     public String expandWebCafeRecord(int personId);
 
+    public String expandJustice(int personId);
+
     public String expandFlightRecord(int personId);
 
     public String expandPunishRecord(int personId);

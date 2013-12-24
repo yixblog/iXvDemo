@@ -9,8 +9,8 @@ $(document).ready(function () {
     iXvChart.buildChart($("body"));
     $.ajax({
         url: "data/vlx/person.vlx",
-        type:"post",
-        data:{personId:2},
+        type: "post",
+        data: {personId: 2},
         success: function (xml) {
             if (xml.length > 0) {
                 iXvChart.setInit(function () {
@@ -54,13 +54,28 @@ $(document).ready(function () {
         actions: {
             101: function () {
                 var properties = iXvChart.getItemProperties(iXvChart.getSelectedItemId());
-                iXvChart.appendVLX({
-                    url: properties.uri,
-                    type: "post"
-                })
+                if (properties.uri != null && properties.uri != "") {
+                    iXvChart.appendVLX({
+                        url: properties.uri,
+                        type: "post"
+                    })
+                }
             },
             102: function () {
                 iXvChart.contractEnds();
+            }
+        }
+    });
+
+    chartMenuManager.registerHandler({
+        manager: chartMenuManager,
+        typeName: "netcafe",
+        menus: {
+            800: '查看网吧信息'
+        },
+        actions: {
+            800: function () {
+                iXvChart.showProperties();
             }
         }
     });
@@ -80,7 +95,7 @@ $(document).ready(function () {
 
     chartMenuManager.registerHandler({
         manager: chartMenuManager,
-        typeName: "liveRecord",
+        typeName: "hotel",
         menus: {
             800: "查看属性"
         },

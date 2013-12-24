@@ -21,9 +21,9 @@
                   displayName="展开属性">
         </LinkType>
 
-        <linkType color="#0000ff" localName="onflight" displayName="乘坐航班">
+        <LinkType color="#0000ff" localName="onflight" displayName="乘坐航班">
             <property localName="seat" displayName="座位号" isLabel="true"/>
-        </linkType>
+        </LinkType>
 
         <LinkType color="#000000" localName="netcafelog" displayName="上网记录">
             <property localName="time" displayName="时间" isLabel="true"/>

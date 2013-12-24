@@ -59,6 +59,12 @@ class VLXController {
         return vlxBuilder.expandPunishRecord(solvePersonId(params))
     }
 
+    @RequestMapping("/justice.vlx")
+    @ResponseBody
+    String expandJustice(@RequestParam String params){
+        return vlxBuilder.expandJustice(solvePersonId(params))
+    }
+
     private int solvePersonId(String params) {
         JSONObject paramObj = JSONObject.parseObject(params);
         paramObj.getIntValue('personid');
